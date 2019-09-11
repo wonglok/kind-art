@@ -3,7 +3,7 @@
     <div class="block h-full md:hidden scrolling-touch overflow-y-auto">
       <PracticeList @item="goItem"></PracticeList>
     </div>
-    <div class="sm:hidden md:flex h-full w-full flex flex-row justify-between">
+    <div class="hidden sm:hidden md:flex h-full w-full flex flex-row justify-between">
       <div class="h-full w-56 xl:w-64 border-r border-gray-600 scrolling-touch overflow-y-auto">
         <PracticeList @item="item = $event"></PracticeList>
       </div>
