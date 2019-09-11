@@ -5,7 +5,7 @@
 
 <script>
 // import * as THREE from 'three'
-let GLAPI = require('../../graphics-simulation/geosim/geosim-terrian.js')
+let GLAPI = require('../../graphics-simulation/geosim/geosim-mushroom.js')
 
 export default {
   props: {

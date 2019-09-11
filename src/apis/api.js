@@ -28,5 +28,11 @@ export const practices = [
     day: '05',
     name: 'Terrian',
     component: () => import('../practices/d05/GeoShadeAnimation.vue')
+  },
+  {
+    _id: '6',
+    day: '06',
+    name: 'Mushroom',
+    component: () => import('../practices/d06/GeoShadeAnimation.vue')
   }
 ]

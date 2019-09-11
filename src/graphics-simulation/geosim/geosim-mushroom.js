@@ -297,7 +297,7 @@ export const makeAPI = ({ renderer, scene }) => {
   })
   let mesh = new THREE.Points(geo, material)
   scene.add(mesh)
-
+  api.mesh = mesh
   scene.background = new THREE.Color('#ffffff')
 
   api.render = () => {
