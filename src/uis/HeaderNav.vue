@@ -16,7 +16,7 @@
         <line y1="8" x2="39" y2="8" stroke="black"/>
       </svg>
     </div>
-    <a class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center" target="_blank" href="https://www.wonglok.com"> Lok Lok 🍓 </a>
+    <a class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center" target="_blank" href="https://www.wonglok.com"> 🍓 Lok Lok 🍓 </a>
 
     <div v-if="overlay === 'menu'" class=" z-10 fixed top-0 left-0 w-full h-full bg-gray-400">
       <div class="item3-con">
