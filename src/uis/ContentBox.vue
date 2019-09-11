@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     goItem (item) {
-      this.$router.push(`/practices/${item._id}`)
+      window.location.assign(`/practices/${item._id}`)
     }
   }
 }
