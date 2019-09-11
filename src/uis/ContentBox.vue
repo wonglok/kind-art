@@ -44,6 +44,6 @@ export default {
   height: calc(100% - 5rem);
 }
 .w-fuller{
-  width: calc(100% - 14rem * 2.0);
+  width: calc(100% - 16rem * 2.0);
 }
 </style>
