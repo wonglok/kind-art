@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-400">
+  <div class="bg-gray-400 font-serif">
     <HeaderNav></HeaderNav>
     <ContentBox></ContentBox>
   </div>

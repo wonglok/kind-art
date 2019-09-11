@@ -1,0 +1,5 @@
+<svg class="w-9" width="39" height="16" viewBox="0 0 39 16" fill="none" v-if="overlay !== 'menu'" xmlns="http://www.w3.org/2000/svg">
+        <line y1="15.5" x2="39" y2="15.5" stroke="black"/>
+        <line y1="0.5" x2="39" y2="0.5" stroke="black"/>
+        <line y1="8" x2="39" y2="8" stroke="black"/>
+      </svg>
