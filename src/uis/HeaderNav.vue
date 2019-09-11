@@ -18,7 +18,7 @@
     </div>
     <div class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center"> Lok Lok 🍓 </div>
 
-    <div v-if="overlay === 'menu'" class="fixed top-0 left-0 w-full h-full bg-gray-400">
+    <div v-if="overlay === 'menu'" class=" z-10 fixed top-0 left-0 w-full h-full bg-gray-400">
       <div class="relative h-20 flex justify-center md:justify-between items-center border-b border-gray-600 text-xl">
         <div class="hidden md:flex px-5 border-r border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center" @click="overlay = false">
           <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +38,7 @@
         </div>
         <div class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center">Loving Gift 🥰</div>
       </div>
-      <div>
+      <div class="bg-gray-400">
         OMG
       </div>
     </div>
@@ -50,6 +50,11 @@ export default {
   data () {
     return {
       overlay: false
+    }
+  },
+  watch: {
+    overlay () {
+      this.$emit('overlay', this.overlay)
     }
   }
 }
