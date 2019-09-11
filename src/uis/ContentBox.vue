@@ -39,11 +39,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .fuller{
   height: calc(100% - 5rem);
 }
-.w-fuller{
-  width: calc(100% - 16rem * 2.0);
+
+@screen md {
+  .w-fuller{
+    width: calc(100% - 14rem * 2.0);
+  }
+}
+@screen xl {
+  .w-fuller{
+    width: calc(100% - 16rem * 2.0);
+  }
 }
 </style>
