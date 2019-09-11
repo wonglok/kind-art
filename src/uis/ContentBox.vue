@@ -29,7 +29,9 @@ export default {
     }
   },
   async mounted () {
-    this.item = API.practices[API.practices.length - 1]
+    if (window.innerWidth >= 768) {
+      this.item = API.practices[API.practices.length - 1]
+    }
   },
   methods: {
     goItem (item) {
