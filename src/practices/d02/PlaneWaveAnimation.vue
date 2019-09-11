@@ -1,16 +1,16 @@
 <template>
   <div class="full relative">
-    <Engine :bloom="'default'" :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
+    <Engine :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
     <div class="full absolute top-0 left-0" ref="toucher"></div>
-    <Flower v-if="engine" :engine="engine"></Flower>
+    <PlaneWave v-if="engine" :scene="engine.scene" :engine="engine"></PlaneWave>
   </div>
 </template>
 
 <script>
 export default {
   components: {
-    Engine: require('./Engine.vue').default,
-    Flower: require('./Flower.vue').default
+    PlaneWave: require('./PlaneWave.vue').default,
+    Engine: require('./Engine.vue').default
   },
   data () {
     return {
@@ -29,7 +29,13 @@ export default {
   },
   methods: {
     setup () {
-
+      let q = {
+        x: 0.43573198127488558,
+        y: 0.16011900217765562,
+        z: -0.21540419652715823,
+        w: -0.7952909424915914
+      }
+      this.engine.scene.setRotationFromQuaternion(q)
     }
   }
 }

@@ -154,7 +154,7 @@ export default {
       this.setupControl()
       this.syncSize()
       // this.setupCubeCamera()
-      this.start()
+      // this.start()
       this.$emit('ready', this)
     },
     // setupAudio () {
@@ -267,9 +267,11 @@ export default {
       }, false)
     },
     stop () {
+      console.log('STOP')
       window.cancelAnimationFrame(this.rAFID)
     },
     start () {
+      console.log('START')
       let rAF = () => {
         this.rAFID = window.requestAnimationFrame(rAF)
         this.render()

@@ -1,9 +1,9 @@
 <template>
-  <div class="full relative">
+  <div class="full">
     <div class="full" ref="mounter">
     </div>
-    <!-- <div class="absolute top-0 left-0" style="zIndex: 10000;">
-      <input type="range" v-if="bloomPass" v-model="bloomPass.threshold" step="0.0001" min="0" max="10" />
+    <!-- <div class="cg-layer" style="zIndex: 10000;">
+      <input type="range" v-if="bloomPass" v-model="bloomPass.threshold" step="0.0001" min="0" max="0.5" />
       <input type="range" v-if="bloomPass" v-model="bloomPass.strength" step="0.0001" min="0" max="5" />
       <input type="range" v-if="bloomPass" v-model="bloomPass.radius" step="0.0001" min="0" max="5" />
     </div> -->
@@ -29,13 +29,6 @@ let THREE = {
 
 let { OrbitControls } = require('three/examples/jsm/controls/OrbitControls.js')
 
-// import * as THREE from 'three'
-// import * as AuAu from '../Simulation/GeoShader/audio/mic.js'
-
-// let getRD = () => {
-//   return `_${(Math.random() * 1000000).toFixed(0)}`
-// }
-
 export default {
   props: {
     bloom: {
@@ -53,7 +46,6 @@ export default {
   },
   data () {
     return {
-      bloomPass: false,
       rotator: false,
       mouse: { x: 0, y: 0, z: 0 },
       rect: false,
@@ -73,17 +65,20 @@ export default {
       cubeCamera: false,
       Settings: {
         camPosition: {
-          'x': 0,
-          'y': 0,
-          'z': 60
+          x: 0,
+          y: -27.79078204435118,
+          z: 113.52915802531395
+          // 'x': 0,
+          // 'y': 0,
+          // 'z': 60
         },
         bloomModes: {
           // 0.112 1.7297 0.6778
           default: {
-            threshold: 0.900,
+            threshold: 0.7246740050804402,
             // threshold: 0.1346740050804403,
-            strength: 1.5872,
-            radius: 0.9134
+            strength: 0.4551227773073666,
+            radius: 1.3343776460626588
           },
           bubbles: {
             threshold: 0.112,
@@ -293,7 +288,7 @@ export default {
       }
 
       Object.keys(this.execStack).forEach(e => this.execStack[e]({ mouse, rect }))
-      let bloom = this.bloom
+      let bloom = false
       if (bloom && scene && camera && renderer && composer) {
         composer.render()
       } else if (scene && camera && renderer) {

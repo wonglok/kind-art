@@ -8,8 +8,8 @@ export const practices = [
   {
     _id: '2',
     day: '02',
-    name: 'Particles Animation',
-    component: () => import('../practices/d02/ParticleAnimation.vue')
+    name: 'Wave GeoShader',
+    component: () => import('../practices/d02/PlaneWaveAnimation.vue')
   },
   {
     _id: '3',

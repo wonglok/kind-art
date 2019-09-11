@@ -28,11 +28,28 @@ export default {
   mounted () {
     this.toucher = this.$refs['toucher']
   },
+  activated () {
+    this.engine.start()
+  },
+  deactivated () {
+    this.engine.stop()
+  },
+  beforeDestroy () {
+    this.engine.execMap.emoji = () => {
+
+    }
+  },
   methods: {
     setup () {
       this.engine.scene.background = new THREE.Color('#718096')
       // eslint-disable-next-line
       this.loadGLTF({ file: require('file-loader!../../graphics/model/glb/hands/writting.glb') })
+
+      this.engine.execMap.emoji = () => {
+        let time = window.performance.now() * 0.001
+        this.mounter.rotation.x = Math.sin(time) * 0.1
+        this.mounter.rotation.y = Math.cos(time) * 0.1
+      }
     },
     getArrayBuffer (item) {
       return new Promise(async (resolve) => {
@@ -47,7 +64,7 @@ export default {
       })
     },
     async loadGLTF (item) {
-      this.engine.camera.position.z = 50
+      this.engine.camera.position.z = 30
       var loader = new THREE.GLTFLoader()
       this.loader = loader
       NProgress.start()
@@ -63,6 +80,8 @@ export default {
         console.log(obj)
         group.add(obj.scene)
         obj.scene.scale.multiplyScalar(40)
+
+        obj.scene.rotation.y = Math.PI * 0.15
 
         var light = new THREE.PointLight(0xffffff, 13, 156)
         light.position.set(0, 60, 125)
