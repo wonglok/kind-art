@@ -10,5 +10,11 @@ export const practices = [
     day: '02',
     name: 'Particles Animation',
     component: () => import('../practices/d02/ParticleAnimation.vue')
+  },
+  {
+    _id: '3',
+    day: '03',
+    name: 'Emoji Lab',
+    component: () => import('../practices/d03/Emoji.vue')
   }
 ]

@@ -12,7 +12,11 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "localforage": "^1.7.3",
+    "nprogress": "^0.2.0",
+    "sentiment": "^5.0.2",
     "tailwindcss": "^1.1.2",
+    "three": "^0.108.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"

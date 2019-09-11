@@ -2,7 +2,7 @@
   <div class="bg-gray-400 font-serif full">
     <HeaderNav>
     </HeaderNav>
-    <component class="full" v-if="item.component" :item="item" :is="item.component"></component>
+    <component class="fuller" v-if="item.component" :item="item" :is="item.component"></component>
   </div>
 </template>
 
@@ -25,6 +25,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.fuller{
+  height: calc(100% - 5rem);
+}
 </style>
