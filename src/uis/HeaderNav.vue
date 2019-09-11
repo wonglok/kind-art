@@ -7,7 +7,7 @@
       </svg>
     </div>
     <div class=" select-none cursor-pointer">
-      <img src="../img/logo.svg" alt="Logo">
+      <img src="../img/logo.svg" alt="Logo" @click="$router.push('/')">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
       <svg class="w-9" width="39" height="16" viewBox="0 0 39 16" fill="none" v-if="overlay !== 'menu'" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@
         </div>
 
         <div class=" select-none">
-          <img src="../img/menu.svg" alt="Menu">
+          <img src="../img/menu.svg" class=" cursor-pointer" alt="Menu" @click="overlay = false">
         </div>
 
         <div class="block md:hidden absolute mobile-close-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = false">
