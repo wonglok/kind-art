@@ -288,6 +288,7 @@ export const makeAPI = ({ renderer, scene }) => {
     side: THREE.DoubleSide
   })
   let mesh = new THREE.Points(geo, material)
+  api.mesh = mesh
   scene.add(mesh)
 
   scene.background = new THREE.Color('#ffffff')
