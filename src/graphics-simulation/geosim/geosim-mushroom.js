@@ -1,5 +1,6 @@
 import * as THREE from 'three'
-import GPUComputationRenderer from './gpgpu.js'
+import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer.js'
+// import GPUComputationRenderer from './gpgpu.js'
 
 let glsl = x => x[0]
 

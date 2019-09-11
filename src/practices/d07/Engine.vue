@@ -279,9 +279,10 @@ export default {
       if (control) {
         control.update()
       }
-      if (cubeCamera) {
-        cubeCamera.update(renderer, scene)
-      }
+
+      // if (cubeCamera) {
+      //   cubeCamera.update(renderer, scene)
+      // }
 
       for (var kn in this.execMap) {
         this.execMap[kn]({ mouse, rect })
