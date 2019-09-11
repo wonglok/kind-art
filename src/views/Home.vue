@@ -1,13 +1,15 @@
 <template>
   <div class="bg-gray-400">
     <HeaderNav></HeaderNav>
+    <ContentBox></ContentBox>
   </div>
 </template>
 
 <script>
 export default {
   components: {
-    HeaderNav: require('../uis/HeaderNav.vue').default
+    HeaderNav: require('../uis/HeaderNav.vue').default,
+    ContentBox: require('../uis/ContentBox.vue').default
   }
 }
 </script>
