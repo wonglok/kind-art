@@ -78,7 +78,7 @@ let simulatePosition = glsl`
     /*
       Assemble
     */
-    vec3 plane = vec3(0.6, 0.4, 0.0);
+    vec3 plane = vec3(0.6, 0.3, 0.0);
     bool isInvalid = false;
     if (vertexIDX == 0.0) {
       pos.x = 1.0 * plane.x;

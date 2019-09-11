@@ -2,14 +2,14 @@
   <div class="full relative">
     <Engine :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
     <div class="full absolute top-0 left-0" ref="toucher"></div>
-    <PlaneWave v-if="engine" :scene="engine.scene" :engine="engine"></PlaneWave>
+    <GeoShade v-if="engine" :scene="engine.scene" :engine="engine"></GeoShade>
   </div>
 </template>
 
 <script>
 export default {
   components: {
-    PlaneWave: require('./PlaneWave.vue').default,
+    GeoShade: require('./GeoShade.vue').default,
     Engine: require('./Engine.vue').default
   },
   data () {

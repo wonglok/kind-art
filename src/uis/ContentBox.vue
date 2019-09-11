@@ -29,7 +29,7 @@ export default {
     }
   },
   async mounted () {
-    this.item = API.practices[0]
+    this.item = API.practices[API.practices.length - 1]
   },
   methods: {
     goItem (item) {
