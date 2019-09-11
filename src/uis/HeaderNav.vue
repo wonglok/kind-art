@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="full">
     <div class="relative h-20 flex justify-center md:justify-between items-center border-b border-gray-600 text-xl">
-      <div class="hidden md:flex px-5 border-r border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-48 text-center items-center">
+      <div class="hidden md:flex px-5 border-r border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center">
         <svg width="62" height="11" viewBox="0 0 62 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <line y1="0.5" x2="62" y2="0.5" stroke="black"/>
           <line y1="10.5" x2="62" y2="10.5" stroke="black"/>
         </svg>
       </div>
-      <div class="">
+      <div class=" select-none cursor-pointer">
         <img src="../img/logo.svg" alt="">
       </div>
       <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer">
@@ -17,7 +17,12 @@
           <line y1="8" x2="39" y2="8" stroke="black"/>
         </svg>
       </div>
-      <div class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-48 text-center items-center">LOL LOL</div>
+      <div class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center">LOL LOL</div>
+    </div>
+    <div class="fuller w-full flex flex-row justify-between">
+      <div class="h-full hidden md:block w-56 xl:w-64 border-r border-gray-600">123123</div>
+      <div class="h-full">123</div>
+      <div class="h-full hidden md:block w-56 xl:w-64 border-l border-gray-600">123</div>
     </div>
   </div>
 </template>
@@ -28,9 +33,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .mobile-menu{
   top: 15px;
   right: 30px;
+}
+.fuller{
+  height: calc(100% - 5rem);
 }
 </style>
