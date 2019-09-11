@@ -67,9 +67,16 @@ export default {
           }
         },
         {
-          name: 'Effect Node',
+          name: `Lok Lok's Twitter`,
           action: () => {
-            window.open(`https://instagram.com/effectnode`)
+            window.open(`https://twitter.com/wonglok831`)
+            this.overlay = false
+          }
+        },
+        {
+          name: `Effect Node's IG`,
+          action: () => {
+            window.open(`https://www.instagram.com/effectnode/`)
             this.overlay = false
           }
         }
