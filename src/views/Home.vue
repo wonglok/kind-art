@@ -1,12 +1,16 @@
 <template>
-  <div class="home">
-    <div class="btn btn-blue mr-5 px-8 py-4 text-lg">Love is in the breath.</div>
+  <div class="bg-gray-400">
+    <HeaderNav></HeaderNav>
   </div>
 </template>
 
 <script>
 export default {
   components: {
+    HeaderNav: require('../uis/HeaderNav.vue').default
   }
 }
 </script>
+
+<style lang="postcss">
+</style>
