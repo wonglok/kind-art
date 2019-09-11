@@ -29,13 +29,13 @@ export default {
   },
   methods: {
     setup () {
-      let q = {
-        x: 0.43573198127488558,
-        y: 0.16011900217765562,
-        z: 0.1021540419652715823,
-        w: -0.7952909424915914
-      }
-      this.engine.scene.setRotationFromQuaternion(q)
+      // let q = {
+      //   x: 0.43573198127488558,
+      //   y: 0.16011900217765562,
+      //   z: 0.1021540419652715823,
+      //   w: -0.7952909424915914
+      // }
+      // this.engine.scene.setRotationFromQuaternion(q)
     }
   }
 }
