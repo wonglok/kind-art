@@ -4,7 +4,8 @@
 </template>
 
 <script>
-let GLAPI = require('../../graphics-simulation/geosim/geosim-geo-shader-loading-ball.js')
+// import * as THREE from 'three'
+let GLAPI = require('../../graphics-simulation/geosim/geosim-terrian.js')
 
 export default {
   props: {
@@ -22,7 +23,12 @@ export default {
   methods: {
     async setup () {
       this.api = GLAPI.makeAPI({ renderer: this.engine.renderer, scene: this.scene })
-      this.engine.camera.position.z = 500
+      this.engine.camera.position.x = 0
+      this.engine.camera.position.z = -500
+      this.engine.camera.position.y = 500
+
+      this.api.mesh.rotation.x = Math.PI * 0.05
+
       this.engine.execStack.renderActiveLearningART = () => {
         this.api.render()
       }

@@ -20,15 +20,16 @@ export const practices = [
   {
     _id: '4',
     day: '04',
-    name: 'Ball',
-    component: () => import('../practices/d04/BallAnimation.vue')
+    name: 'Terrian',
+    component: () => import('../practices/d05/BallAnimation.vue')
   },
   {
     _id: '5',
     day: '05',
-    name: 'Terrian',
-    component: () => import('../practices/d05/GeoShadeAnimation.vue')
+    name: 'Ball',
+    component: () => import('../practices/d04/GeoShadeAnimation.vue')
   }
+
   // {
   //   _id: '6',
   //   day: '06',
