@@ -20,7 +20,7 @@ export const practices = [
   {
     _id: '4',
     day: '04',
-    name: 'Terrian',
+    name: 'Hill',
     component: () => import('../practices/d05/BallAnimation.vue')
   },
   {
