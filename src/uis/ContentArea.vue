@@ -1,8 +1,6 @@
 <template>
   <div class="full">
-    <keep-alive>
-      <component class="full" v-if="item.component" :item="item" :is="item.component"></component>
-    </keep-alive>
+  <component class="full" v-if="item.component" :item="item" :is="item.component"></component>
   </div>
 </template>
 

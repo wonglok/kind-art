@@ -154,7 +154,7 @@ export default {
       this.setupControl()
       this.syncSize()
       // this.setupCubeCamera()
-      // this.start()
+      this.start()
       this.$emit('ready', this)
     },
     // setupAudio () {
