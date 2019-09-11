@@ -27,16 +27,16 @@ export default {
       this.engine.camera.position.z = -500
       this.engine.camera.position.y = 500
 
-      this.api.mesh.rotation.x = Math.PI * 0.05
+      // this.api.mesh.rotation.x = Math.PI * 0.05
 
-      this.engine.execStack.renderActiveLearningART = () => {
+      this.engine.execMap.renderActiveLearningART = () => {
         this.api.render()
       }
     }
   },
   beforeDestroy () {
     this.api.clean()
-    this.engine.execStack.renderActiveLearningART = () => {}
+    this.engine.execMap.renderActiveLearningART = () => {}
   }
 }
 </script>

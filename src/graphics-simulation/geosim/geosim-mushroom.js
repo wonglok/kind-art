@@ -28,6 +28,8 @@ let simulateVelocity = glsl`
     return diff;
   }
 
+  precision highp sampler2D;
+
   uniform sampler2D index;
   uniform float time;
   void main (void) {
@@ -123,6 +125,8 @@ let simulatePosition = glsl`
   /*
     MAIN CODE
   */
+  precision highp sampler2D;
+
   uniform sampler2D dimension3;
   uniform sampler2D index;
   uniform float time;
@@ -282,6 +286,7 @@ export const makeAPI = ({ renderer, scene }) => {
       resolution: `vec2(${WIDTH.toFixed(1)}, ${WIDTH.toFixed(1)})`
     },
     vertexShader: glsl`
+      precision highp sampler2D;
       uniform sampler2D tPos;
       void main () {
         vec4 posTex = texture2D(tPos, uv);
@@ -290,6 +295,7 @@ export const makeAPI = ({ renderer, scene }) => {
       }
     `,
     fragmentShader: glsl`
+      precision highp sampler2D;
       uniform vec3 solidColor;
       void main (void) {
         gl_FragColor = vec4(solidColor, 0.7);

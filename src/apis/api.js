@@ -37,7 +37,6 @@ export const practices = [
   // },
   // {
   //   _id: '7',
-  //   day: '07',
   //   name: 'Sculpture',
   //   component: () => import('../practices/d07/GeoShadeAnimation.vue')
   // }
