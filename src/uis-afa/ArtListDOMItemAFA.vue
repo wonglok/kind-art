@@ -5,11 +5,13 @@
 <script>
 export default {
   props: {
-    ui: {}
+    ui: {},
+    map: {}
   },
   data () {
     let domID = `_${(Math.random() * 1000000000).toFixed(0)}`
-    this.ui.domID = domID
+    // this.ui.domID = domID
+    this.map.set(this.ui._id, domID)
     return {
       domID
     }

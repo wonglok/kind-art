@@ -57,18 +57,23 @@ export default {
     controls.enablePan = false
     controls.enableZoom = false
 
-    let geometry = new THREE.DodecahedronBufferGeometry(6.5)
+    let geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 230, 230, 4.0)
     var material = new THREE.MeshStandardMaterial({
       color: new THREE.Color().setHSL(Math.random(), 1, 0.75),
       roughness: 0.5,
       metalness: 0,
       flatShading: true
     })
-    scene.add(new THREE.Mesh(geometry, material))
+    let mesh = new THREE.Mesh(geometry, material)
+    scene.add(mesh)
     scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x444444))
     var light = new THREE.DirectionalLight(0xffffff, 0.5)
     light.position.set(1, 1, 1)
     scene.add(light)
+
+    let getObject = () => {
+      return mesh
+    }
 
     window.addEventListener('resize', () => {
       let size = dom.getBoundingClientRect()
@@ -84,7 +89,7 @@ export default {
       let rect = dom.getBoundingClientRect()
       let navrect = nav.getBoundingClientRect()
 
-      if (rect.bottom < 0 || rect.top > renderer.domElement.clientHeight ||
+      if (rect.bottom < 0 || rect.top > (renderer.domElement.clientHeight + navrect.height) ||
           rect.right < 0 || rect.left > renderer.domElement.clientWidth) {
         return // it's off screen
       }
@@ -93,6 +98,8 @@ export default {
       var height = rect.bottom - rect.top
       var left = rect.left
       var bottom = renderer.domElement.clientHeight - rect.bottom + navrect.height
+
+      getObject().rotation.x = bottom / (renderer.domElement.clientHeight * 0.5) * Math.PI
 
       //
       renderer.setViewport(left, bottom, width, height)
