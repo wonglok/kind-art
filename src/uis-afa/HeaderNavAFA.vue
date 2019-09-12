@@ -6,8 +6,9 @@
         <line y1="10.5" x2="62" y2="10.5" stroke="black"/>
       </svg>
     </div>
+
     <div class=" select-none cursor-pointer">
-      <img src="../img/logo.svg" alt="Logo" @click="$router.push('/')">
+      <img :src="titleimg" class="w-9/12 mx-auto" alt="Logo" @click="$router.push('/artpop-fan-art')">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
       <svg class="w-9" width="39" height="16" viewBox="0 0 39 16" fill="none" v-if="overlay !== 'menu'" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +17,7 @@
         <line y1="8" x2="39" y2="8" stroke="black"/>
       </svg>
     </div>
-    <a class="hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center" target="_blank" href="https://www.wonglok.com"> 🍓 Lok Lok 🍓 </a>
+    <router-link class="titlefont hidden md:flex px-5 border-l border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center" :to="ctalink">  {{ ctatitle }} </router-link>
 
     <div v-if="overlay === 'menu'" class=" z-10 fixed top-0 left-0 w-full h-full bg-gray-400">
       <div class="item3-con">
@@ -28,7 +29,7 @@
         </div>
 
         <div class=" select-none">
-          <img src="../img/menu.svg" class=" cursor-pointer" alt="Menu" @click="overlay = false">
+          <img src="../img/menu.svg" class="cursor-pointer" alt="Menu" @click="overlay = false">
         </div>
 
         <div class="block md:hidden absolute mobile-close-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = false">
@@ -49,6 +50,17 @@
 
 <script>
 export default {
+  props: {
+    titleimg: {
+      default: require('../img/afa.svg')
+    },
+    ctatitle: {
+      default: `Kudos and Credit`
+    },
+    ctalink: {
+      default: `/kudos-and-credits`
+    }
+  },
   data () {
     return {
       items: [

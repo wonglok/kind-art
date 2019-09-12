@@ -15,6 +15,14 @@ export default new Router({
       component: Home
     },
     {
+      path: '/artpop-fan-art',
+      component: () => import(/* webpackChunkName: "artpop" */ './views/ARTPOP.vue')
+    },
+    {
+      path: '/kudos-and-credits',
+      component: () => import(/* webpackChunkName: "artpop" */ './views/APKudos.vue')
+    },
+    {
       path: '/practices/:pid',
       component: Practices
     },
