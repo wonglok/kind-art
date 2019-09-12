@@ -12,7 +12,7 @@
     <div class="absolute top-0 left-0 h-full w-full scrolling-touch overflow-y-auto" ref="scroller">
       <ArtListDOMItemAFA :map="map" :key="ui._id + 'dom'" @select="$emit('select', $event)" :ui="ui" v-for="ui in uis">
       </ArtListDOMItemAFA>
-      <div class="h-56 border-gray-700 w-full flex items-center justify-center" @click="$emit('loadmore')">
+      <div class="h-56 border-gray-700 w-full border-b flex items-center justify-center" @click="$emit('loadmore')">
         Load More...
       </div>
     </div>

@@ -51,11 +51,11 @@ export default {
 
     let camera = this.api.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
     camera.position.z = 16
-    var controls = new THREE.OrbitControls(camera, dom)
-    controls.minDistance = 0
-    controls.maxDistance = 16
-    controls.enablePan = false
-    controls.enableZoom = false
+    // var controls = new THREE.OrbitControls(camera, dom)
+    // controls.minDistance = 0
+    // controls.maxDistance = 16
+    // controls.enablePan = false
+    // controls.enableZoom = false
 
     let geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 230, 230, 4.0)
     var material = new THREE.MeshStandardMaterial({
@@ -84,7 +84,8 @@ export default {
 
     this.api.render = async ({ renderer }) => {
       // console.log('123')
-      controls.update()
+      // controls.update()
+
       scene.children[0].rotation.y += 0.01
       let rect = dom.getBoundingClientRect()
       let navrect = nav.getBoundingClientRect()
