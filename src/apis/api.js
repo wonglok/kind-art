@@ -20,14 +20,14 @@ export const practices = [
   {
     _id: '4',
     day: '04',
-    name: 'Hill',
-    component: () => import('../practices/d05-hill/GeoShadeAnimation.vue')
+    name: 'Ball',
+    component: () => import('../practices/d04-ball/BallAnimation.vue')
   },
   {
     _id: '5',
     day: '05',
-    name: 'Ball',
-    component: () => import('../practices/d04-ball/BallAnimation.vue')
+    name: 'Hill',
+    component: () => import('../practices/d05-hill/GeoShadeAnimation.vue')
   },
   {
     _id: '6',

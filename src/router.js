@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Practices from './views/Practices.vue'
+import PracticesEmbed from './views/PracticesEmbed.vue'
 
 Vue.use(Router)
 
@@ -16,6 +17,10 @@ export default new Router({
     {
       path: '/practices/:pid',
       component: Practices
+    },
+    {
+      path: '/practices-embed/:pid',
+      component: PracticesEmbed
     },
     {
       path: '/about',
