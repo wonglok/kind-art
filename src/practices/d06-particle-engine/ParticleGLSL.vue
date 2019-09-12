@@ -211,6 +211,7 @@ export default {
             vIDX++
           }
         }
+
         geo.addAttribute('position', new THREE.BufferAttribute(new Float32Array(ARR_VAL), 3))
       }
       makePosAttr()
@@ -285,8 +286,9 @@ export default {
 
             vMeta = meta;
             vPos = nPos;
+
             gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos.xyz, 1.0);
-            gl_PointSize = 1.5;
+            gl_PointSize = 1.0;
           }
         `,
         fragmentShader: `
