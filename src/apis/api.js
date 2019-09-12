@@ -30,8 +30,8 @@ export const practices = [
     component: () => import('../practices/d04-ball/BallAnimation.vue')
   },
   {
-    _id: '5',
-    day: '05',
+    _id: '6',
+    day: '06',
     name: 'Particles',
     component: () => import('../practices/d06-particle-engine/ParticlePage.vue')
   }
