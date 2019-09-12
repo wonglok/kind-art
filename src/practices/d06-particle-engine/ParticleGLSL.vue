@@ -30,7 +30,6 @@ export default {
         // ---------------------------------------
         // Gravity
         // ---------------------------------------
-
         float constrain(float val, float min, float max) {
             if (val < min) {
                 return min;
@@ -87,6 +86,17 @@ export default {
         precision highp sampler2D;
         uniform float time;
         uniform sampler2D meta0;
+        #include <common>
+
+        mat3 rotateX(float rad) {
+            float c = cos(rad);
+            float s = sin(rad);
+            return mat3(
+                1.0, 0.0, 0.0,
+                0.0, c, s,
+                0.0, -s, c
+            );
+        }
 
         void main (void) {
           vec2 uv = gl_FragCoord.xy / resolution.xy;
@@ -99,16 +109,18 @@ export default {
 
           float tt = floor(time * 0.5);
           float pi = 3.14159265;
-          float k = 0.4;
 
-          k += tt * 0.2;
-          k = mod(k, 3.0);
+          float e = vIDX / total;
+          float epi = e * pi * 2.0 + time + rand(vec2(vIDX, total + time));
+          float radius = 50.0;
 
-          float t = (vIDX / total) * (20.0 * pi);
-          float x = 30.0 * cos(k * t) * cos(t + time);
-          float y = 30.0 * cos(k * t) * sin(t + time);
+          float x = radius * (sin(epi) * sin(epi) - 0.5);
+          float y = radius * sin(epi) * cos(epi);
+          float z = (e - 0.5) * 60.0;
 
-          vec3 vel = (vec3(x, y, 0.5) - posdata.xyz) * 0.1;
+          vec3 spiralUp = rotateX(pi * 0.5) * vec3(x, y, z);
+
+          vec3 vel = (spiralUp - posdata.xyz) * 0.1;
 
           gl_FragColor = vec4(vel.xyz, 1.0);
         }
@@ -252,7 +264,8 @@ export default {
           precision highp sampler2D;
           #include <common>
 
-          attribute vec3 meta;
+          attribute vec4 meta;
+          varying vec4 vMeta;
 
           varying vec2 vUv;
           varying vec3 vPos;
@@ -270,13 +283,15 @@ export default {
 
             vec3 nPos = pos0data.xyz;
 
+            vMeta = meta;
             vPos = nPos;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos.xyz, 1.0);
-            gl_PointSize = 5.0;
+            gl_PointSize = 1.5;
           }
         `,
         fragmentShader: `
           #include <common>
+
           // ---------------------------------------
           // Main Code
           // ---------------------------------------
@@ -285,19 +300,28 @@ export default {
           uniform float time;
           varying vec2 vUv;
           varying vec3 vPos;
+          varying vec4 vMeta;
 
+          uniform sampler2D pos0;
           uniform sampler2D vel0;
 
           void main (void) {
+            float vIDX = vMeta.x;
+            float total = vMeta.y;
+            float e = vIDX / total;
+
             float d = length(gl_PointCoord.xy - 0.5);
             if (d < 0.5) {
               vec3 particlePosition = vPos;
 
               vec4 vel0data = texture2D(vel0, vUv);
+              vec4 pos0data = texture2D(pos0, vUv);
+
+              float spark = 1.2 * fract(rand(vec2(vIDX)) + time);
 
               vec4 particleColor = vec4(vec3(1.0, 1.0, 1.0), 1.0);
-              vec4 lightColor = vec4(abs(vel0data.xyz), 1.0);
-              vec3 lightPosition = vec3(0.0, 0.0, sin(time) * 100.0);
+              vec4 lightColor = vec4(abs(vel0data.xyz + 0.6) * spark, 1.0);
+              vec3 lightPosition = vec3(0.0, 0.0, 0.0);
               float lightStrength = 100.0;
 
               float distanceToLightSource = 1.0 / distance(particlePosition, lightPosition);
@@ -312,7 +336,7 @@ export default {
       })
 
       let points = new THREE.Points(geo, mat)
-      this.engine.scene.background = new THREE.Color('#cbd5e0')
+      this.engine.scene.background = new THREE.Color('#2e2e2e')
 
       this.engine.scene.add(points)
       this.clean = () => {

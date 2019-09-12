@@ -2,7 +2,7 @@
   <div class="full relative">
     <Engine :bloom="'default'" :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
     <div class="full absolute top-0 left-0" ref="toucher"></div>
-    <FlowerGLSL v-if="engine" :engine="engine"></FlowerGLSL>
+    <ParticleGLSL v-if="engine" :engine="engine"></ParticleGLSL>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 export default {
   components: {
     Engine: require('./Engine.vue').default,
-    FlowerGLSL: require('./FlowerGLSL.vue').default
+    ParticleGLSL: require('./ParticleGLSL.vue').default
   },
   data () {
     return {

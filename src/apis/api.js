@@ -2,7 +2,7 @@ export const practices = [
   {
     _id: '1',
     day: '01',
-    name: 'Flower Algorithm',
+    name: 'Flower Algo',
     component: () => import('../practices/d01/FlowerAlgorithm.vue')
   },
   {
@@ -21,24 +21,18 @@ export const practices = [
     _id: '4',
     day: '04',
     name: 'Hill',
-    component: () => import('../practices/d05/GeoShadeAnimation.vue')
+    component: () => import('../practices/d05-hill/GeoShadeAnimation.vue')
   },
   {
     _id: '5',
     day: '05',
     name: 'Ball',
-    component: () => import('../practices/d04/BallAnimation.vue')
+    component: () => import('../practices/d04-ball/BallAnimation.vue')
+  },
+  {
+    _id: '5',
+    day: '05',
+    name: 'Particles',
+    component: () => import('../practices/d06-particle-engine/ParticlePage.vue')
   }
-
-  // {
-  //   _id: '6',
-  //   day: '06',
-  //   name: 'Mushroom',
-  //   component: () => import('../practices/d06/GeoShadeAnimation.vue')
-  // },
-  // {
-  //   _id: '7',
-  //   name: 'Sculpture',
-  //   component: () => import('../practices/d07/GeoShadeAnimation.vue')
-  // }
 ]

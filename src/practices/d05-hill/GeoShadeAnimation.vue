@@ -18,12 +18,12 @@ export default {
       engine: false
     }
   },
-  activated () {
-    this.engine.start()
-  },
-  deactivated () {
-    this.engine.stop()
-  },
+  // activated () {
+  //   this.engine.start()
+  // },
+  // deactivated () {
+  //   this.engine.stop()
+  // },
   mounted () {
     this.toucher = this.$refs['toucher']
   },

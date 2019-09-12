@@ -28,12 +28,12 @@ export default {
   mounted () {
     this.toucher = this.$refs['toucher']
   },
-  activated () {
-    this.engine.start()
-  },
-  deactivated () {
-    this.engine.stop()
-  },
+  // activated () {
+  //   this.engine.start()
+  // },
+  // deactivated () {
+  //   this.engine.stop()
+  // },
   beforeDestroy () {
     this.engine.execMap.emoji = () => {
 
