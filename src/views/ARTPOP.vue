@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-400 font-serif">
-    <HeaderNavAFA></HeaderNavAFA>
+    <HeaderNavAFA :titlelink="'/artpop-fan-art'" :ctatitle="'Go Back'" :ctalink="'/'"></HeaderNavAFA>
     <ContentBoxAFA></ContentBoxAFA>
   </div>
 </template>

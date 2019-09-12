@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-400 font-serif">
-    <HeaderNavAFA :titleimg="require('../img/kudos.svg')" :ctatitle="'ARTPOP Playground'" :ctalink="'/artpop-fan-art'"></HeaderNavAFA>
+    <HeaderNavAFA :titleimg="require('../img/kudos.svg')" :titlelink="'/artpop-fan-art'" :ctatitle="'Go Back'" :ctalink="'/artpop-fan-art'"></HeaderNavAFA>
   </div>
 </template>
 

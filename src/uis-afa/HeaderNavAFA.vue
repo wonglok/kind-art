@@ -1,5 +1,5 @@
 <template>
-  <div class="item3-con">
+  <div class="item3-con" id="navrect">
     <div @click="overlay = 'menu'" class="hidden md:flex px-5 border-r border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center">
       <svg width="62" height="11" viewBox="0 0 62 11" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line y1="0.5" x2="62" y2="0.5" stroke="black"/>
@@ -8,7 +8,7 @@
     </div>
 
     <div class=" select-none cursor-pointer">
-      <img :src="titleimg" class="w-9/12 mx-auto" alt="Logo" @click="$router.push('/artpop-fan-art')">
+      <img :src="titleimg" class="w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
       <svg class="w-9" width="39" height="16" viewBox="0 0 39 16" fill="none" v-if="overlay !== 'menu'" xmlns="http://www.w3.org/2000/svg">
@@ -53,6 +53,9 @@ export default {
   props: {
     titleimg: {
       default: require('../img/afa.svg')
+    },
+    titlelink: {
+      default: '/artpop-fan-art'
     },
     ctatitle: {
       default: `Kudos and Credit`
