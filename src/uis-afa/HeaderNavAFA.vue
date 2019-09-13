@@ -7,8 +7,8 @@
       </svg>
     </div>
 
-    <div class="w-fuller select-none cursor-pointer">
-      <img :src="titleimg" class="w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
+    <div class="select-none cursor-pointer">
+      <img :src="titleimg" class=" w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
       <svg class="w-9" width="39" height="16" viewBox="0 0 39 16" fill="none" v-if="overlay !== 'menu'" xmlns="http://www.w3.org/2000/svg">
