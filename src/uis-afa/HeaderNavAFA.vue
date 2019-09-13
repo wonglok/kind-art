@@ -7,7 +7,7 @@
       </svg>
     </div>
 
-    <div class="select-none cursor-pointer">
+    <div class="w-fuller select-none cursor-pointer">
       <img :src="titleimg" class=" w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
@@ -124,11 +124,15 @@ export default {
 .fuller {
   height: calc(100% - 5rem);
 }
-
 .w-fuller{
-  width: calc(100% - 14rem * 2.0);
+  width: 100%;
 }
 
+@screen md {
+  .w-fuller{
+    width: calc(100% - 14rem * 2.0);
+  }
+}
 @screen xl {
   .w-fuller{
     width: calc(100% - 16rem * 2.0);

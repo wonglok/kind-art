@@ -16,7 +16,7 @@ export default new Router({
     },
     {
       path: '/artpop-fan-art',
-      component: () => import(/* webpackChunkName: "artpop" */ './views/ARTPOP.vue')
+      component: () => import(/* webpackChunkName: "artpop" */ './views/AFA.vue')
     },
     {
       path: '/kudos-and-credits',

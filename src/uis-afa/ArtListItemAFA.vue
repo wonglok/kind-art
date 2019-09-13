@@ -8,6 +8,7 @@ let THREE = {
   ...require('three'),
   ...require('three/examples/jsm/controls/OrbitControls.js')
 }
+let API = require('../apis/api')
 
 export default {
   props: {
@@ -57,30 +58,20 @@ export default {
     // controls.enablePan = false
     // controls.enableZoom = false
 
-    let geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 230, 230, 4.0)
-    var material = new THREE.MeshStandardMaterial({
-      color: new THREE.Color().setHSL(Math.random(), 1, 0.75),
-      roughness: 0.5,
-      metalness: 0,
-      flatShading: true
-    })
-    let mesh = new THREE.Mesh(geometry, material)
-    scene.add(mesh)
+    scene.background = new THREE.Color('rgb(192,223,255)')
+
+    let glAPI = await API.setupGraphics({ ui: this.ui, scene })
+
     scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x444444))
     var light = new THREE.DirectionalLight(0xffffff, 0.5)
     light.position.set(1, 1, 1)
     scene.add(light)
-
-    let getObject = () => {
-      return mesh
-    }
 
     window.addEventListener('resize', () => {
       let size = dom.getBoundingClientRect()
       camera.aspect = size.width / size.height
       camera.updateProjectionMatrix()
     })
-    scene.background = new THREE.Color('rgb(192,223,255)')
 
     this.api.render = async ({ renderer }) => {
       // console.log('123')
@@ -100,7 +91,7 @@ export default {
       var left = rect.left
       var bottom = renderer.domElement.clientHeight - rect.bottom + navrect.height
 
-      getObject().rotation.x = bottom / (renderer.domElement.clientHeight * 0.5) * Math.PI
+      glAPI.animate({ renderer, bottom })
 
       //
       renderer.setViewport(left, bottom, width, height)
