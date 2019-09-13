@@ -39,11 +39,16 @@ export const practices = [
   }
 ]
 
+export const wait = () => {
+  return new Promise((resolve) => setTimeout(resolve, 0))
+}
+
 export const loadGLB = () => {
 
 }
 
 export const setupGraphics = async ({ ui, scene, camera }) => {
+  await wait()
   let api = {}
 
   let geometry = false
@@ -55,6 +60,8 @@ export const setupGraphics = async ({ ui, scene, camera }) => {
     geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 128, 128, 4.0)
   }
   let color = new THREE.Color().setHSL(Math.random(), 1, 0.75)
+
+  await wait()
 
   var material = new THREE.MeshStandardMaterial({
     color,
@@ -71,8 +78,6 @@ export const setupGraphics = async ({ ui, scene, camera }) => {
     mesh.rotation.x = (bottom) / (renderer.domElement.clientHeight * 0.5) * Math.PI * 0.5
     mesh.rotation.y += 0.005
   }
-
-  api.getObject = () => mesh
 
   scene.add(mesh)
 
