@@ -107,7 +107,7 @@ export default {
     width: calc(100% - 14rem * 2.0);
   }
 }
-@screen xl {
+@screen lg {
   .w-fuller{
     width: calc(100% - 16rem * 2.0);
   }

@@ -1,13 +1,13 @@
 <template>
   <div class="item3-con" id="navrect">
-    <div @click="overlay = 'menu'" class="hidden md:flex px-5 border-r border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center">
+    <div @click="overlay = 'menu'" class="hidden  md:flex px-5 border-r border-gray-600 h-full flex items-center justify-center cursor-pointer select-none hover:bg-gray-200 font-serif w-56 xl:w-64 text-center items-center">
       <svg width="62" height="11" viewBox="0 0 62 11" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line y1="0.5" x2="62" y2="0.5" stroke="black"/>
         <line y1="10.5" x2="62" y2="10.5" stroke="black"/>
       </svg>
     </div>
 
-    <div class=" select-none cursor-pointer">
+    <div class="w-fuller select-none cursor-pointer">
       <img :src="titleimg" class="w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
@@ -123,6 +123,16 @@ export default {
 <style lang="postcss" scoped>
 .fuller {
   height: calc(100% - 5rem);
+}
+
+.w-fuller{
+  width: calc(100% - 14rem * 2.0);
+}
+
+@screen xl {
+  .w-fuller{
+    width: calc(100% - 16rem * 2.0);
+  }
 }
 
 .mobile-menu{
