@@ -39,27 +39,37 @@ export const practices = [
   }
 ]
 
-export const setupGraphics = async ({ ui, scene }) => {
+export const loadGLB = () => {
+
+}
+
+export const setupGraphics = async ({ ui, scene, camera }) => {
   let api = {}
 
   let geometry = false
   if (Math.random() <= 0.25) {
     geometry = new THREE.BoxBufferGeometry(8.0, 8.0, 8.0, 20, 20, 20)
+  } else if (Math.random() <= 0.35) {
+    geometry = new THREE.CylinderGeometry(5.0, 5.0, 10.0, 32, 32, false)
   } else {
-    geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 230, 230, 4.0)
+    geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 128, 128, 4.0)
   }
   let color = new THREE.Color().setHSL(Math.random(), 1, 0.75)
+
   var material = new THREE.MeshStandardMaterial({
     color,
     roughness: 0.5,
     metalness: 0.05,
     flatShading: false
   })
+
   let mesh = new THREE.Mesh(geometry, material)
   scene.background = color.clone().offsetHSL(0.05, 0.0, 0.2)
 
   api.animate = ({ bottom, renderer }) => {
-    mesh.rotation.x = bottom / (renderer.domElement.clientHeight * 0.5) * Math.PI
+    // camera.position.y = ((renderer.domElement.clientHeight - bottom) / (renderer.domElement.clientHeight)) * 5.0
+    mesh.rotation.x = (bottom) / (renderer.domElement.clientHeight * 0.5) * Math.PI * 0.5
+    mesh.rotation.y += 0.005
   }
 
   api.getObject = () => mesh

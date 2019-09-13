@@ -60,7 +60,7 @@ export default {
 
     scene.background = new THREE.Color('rgb(192,223,255)')
 
-    let glAPI = await API.setupGraphics({ ui: this.ui, scene })
+    let glAPI = await API.setupGraphics({ ui: this.ui, scene, camera })
 
     scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x444444))
     var light = new THREE.DirectionalLight(0xffffff, 0.5)
@@ -76,8 +76,7 @@ export default {
     this.api.render = async ({ renderer }) => {
       // console.log('123')
       // controls.update()
-
-      scene.children[0].rotation.y += 0.01
+      // scene.children[0].rotation.y += 0.01
       let rect = dom.getBoundingClientRect()
       let navrect = nav.getBoundingClientRect()
 
