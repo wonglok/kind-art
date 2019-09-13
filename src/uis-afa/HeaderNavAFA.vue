@@ -8,7 +8,7 @@
     </div>
 
     <div class="w-fuller select-none cursor-pointer">
-      <img :src="titleimg" class=" w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
+      <img :src="titleimg" class="logo-maxer w-8/12 lg:w-9/12 mx-auto" alt="Logo" @click="$router.push(titlelink)">
     </div>
     <div class="block md:hidden absolute mobile-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = 'menu'">
       <svg class="w-9" width="39" height="16" viewBox="0 0 39 16" fill="none" v-if="overlay !== 'menu'" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@
         </div>
 
         <div class=" select-none">
-          <img src="../img/menu.svg" class="cursor-pointer" alt="Menu" @click="overlay = false">
+          <img src="../img/menu.svg" class="logo-maxer cursor-pointer" alt="Menu" @click="overlay = false">
         </div>
 
         <div class="block md:hidden absolute mobile-close-menu w-12 h-12 p-4 cursor-pointer" @click="overlay = false">
@@ -158,5 +158,9 @@ export default {
   .item3-con{
     @apply justify-between;
   }
+}
+
+.logo-maxer{
+  max-height: 3rem;
 }
 </style>
