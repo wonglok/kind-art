@@ -1,5 +1,5 @@
 <template>
-  <div class="h-56 border-b border-gray-700 w-full" @click="$emit('select', ui)" :id="domID"></div>
+  <div class="h-56 border-b border-gray-700 w-full" @mouseenter="$emit('select', ui)" @click="$emit('select', ui)" :id="domID"></div>
 </template>
 
 <script>

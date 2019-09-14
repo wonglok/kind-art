@@ -60,9 +60,9 @@ export default {
           }
         },
         {
-          name: 'FAN ART: ARTPOP Playground',
+          name: 'Remixer GL Playground',
           action: () => {
-            this.$router.push('/artpop-fan-art')
+            this.$router.push('/remixer')
             this.overlay = false
           }
         },

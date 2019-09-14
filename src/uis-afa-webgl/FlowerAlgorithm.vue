@@ -1,25 +1,16 @@
 <template>
   <div class="full relative">
-    <Engine :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
+    <Engine :bloom="'default'" :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
     <div class="full absolute top-0 left-0" ref="toucher"></div>
-    <DetailItemAFA v-if="engine && ui" :ui="ui" :engine="engine"></DetailItemAFA>
+    <FlowerGLSL v-if="engine" :engine="engine"></FlowerGLSL>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    uis: {},
-    currentID: {}
-  },
   components: {
-    Engine: require('../uis-afa-webgl/Engine.vue').default,
-    DetailItemAFA: require('../uis-afa-webgl/DetailItemAFA.vue').default
-  },
-  computed: {
-    ui () {
-      return this.uis.find(e => e._id === this.currentID)
-    }
+    Engine: require('./Engine.vue').default,
+    FlowerGLSL: require('./FlowerGLSL.vue').default
   },
   data () {
     return {

@@ -47,19 +47,25 @@ export const loadGLB = () => {
 
 }
 
-export const setupGraphics = async ({ ui, scene, camera }) => {
+export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
   await wait()
   let api = {}
+  let seed = ui.seed
+  let geotype = ui.geotype || 'box'
 
   let geometry = false
-  if (Math.random() <= 0.25) {
+
+  if (geotype === 'box') {
     geometry = new THREE.BoxBufferGeometry(8.0, 8.0, 8.0, 20, 20, 20)
-  } else if (Math.random() <= 0.35) {
+  } else if (geotype === 'cylinder') {
     geometry = new THREE.CylinderGeometry(5.0, 5.0, 10.0, 32, 32, false)
-  } else {
-    geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 128, 128, 4.0)
+  } else if (geotype === 'torusknot') {
+    geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 256, 256, 4.0)
+  } else if (geotype === 'sphere') {
+    geometry = new THREE.SphereBufferGeometry(6.0, 128, 128)
   }
-  let color = new THREE.Color().setHSL(Math.random(), 1, 0.75)
+
+  let color = new THREE.Color().setHSL(seed, 1, 0.75)
 
   await wait()
 
@@ -71,15 +77,26 @@ export const setupGraphics = async ({ ui, scene, camera }) => {
   })
 
   let mesh = new THREE.Mesh(geometry, material)
+  api.getObject = () => mesh
   scene.background = color.clone().offsetHSL(0.05, 0.0, 0.2)
 
-  api.animate = ({ bottom, renderer }) => {
+  api.render = ({ parallax = undefined }) => {
     // camera.position.y = ((renderer.domElement.clientHeight - bottom) / (renderer.domElement.clientHeight)) * 5.0
-    mesh.rotation.x = (bottom) / (renderer.domElement.clientHeight * 0.5) * Math.PI * 0.5
+    if (typeof parallax !== 'undefined') {
+      mesh.rotation.y = parallax * Math.PI * 0.5
+    }
     mesh.rotation.y += 0.005
   }
 
-  scene.add(mesh)
+  camera.position.z = 16
 
+  let light2 = new THREE.HemisphereLight(0xaaaaaa, 0x444444)
+  mounter.add(light2)
+
+  var light = new THREE.DirectionalLight(0xffffff, 0.5)
+  light.position.set(1, 1, 1)
+  mounter.add(light)
+
+  mounter.add(mesh)
   return api
 }

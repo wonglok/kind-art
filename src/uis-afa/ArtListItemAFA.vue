@@ -51,21 +51,16 @@ export default {
     let far = 100000000
 
     let camera = this.api.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-    camera.position.z = 16
+
     // var controls = new THREE.OrbitControls(camera, dom)
     // controls.minDistance = 0
     // controls.maxDistance = 16
     // controls.enablePan = false
     // controls.enableZoom = false
 
-    scene.background = new THREE.Color('rgb(192,223,255)')
+    // scene.background = new THREE.Color('rgb(192,223,255)')
 
-    let glAPI = await API.setupGraphics({ ui: this.ui, scene, camera })
-
-    scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x444444))
-    var light = new THREE.DirectionalLight(0xffffff, 0.5)
-    light.position.set(1, 1, 1)
-    scene.add(light)
+    let glAPI = await API.setupGraphics({ ui: this.ui, scene, camera, mounter: scene })
 
     window.addEventListener('resize', () => {
       let size = dom.getBoundingClientRect()
@@ -89,8 +84,8 @@ export default {
       var height = rect.bottom - rect.top
       var left = rect.left
       var bottom = renderer.domElement.clientHeight - rect.bottom + navrect.height
-
-      glAPI.animate({ renderer, bottom })
+      var parallax = (renderer.domElement.clientHeight - bottom + height * 0.5) / (renderer.domElement.clientHeight)
+      glAPI.render({ parallax })
 
       //
       renderer.setViewport(left, bottom, width, height)

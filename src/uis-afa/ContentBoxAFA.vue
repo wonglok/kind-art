@@ -11,9 +11,8 @@
         <ARTListAFA @loadmore="onLoadMore" v-if="inDesktopViewPort && uis && scenes" :uis="uis" :scenes="scenes" @select="onSelect"></ARTListAFA>
       </div>
       <div class="h-full w-fuller">
-        Center Content
-         {{ currentID }}
-         <MainContentAFA :currentID="currentID"></MainContentAFA>
+        <MainContentAFA v-if="uis" :uis="uis" :currentID="currentID"></MainContentAFA>
+        <!-- Center Content {{ currentID }} -->
         <!-- <ContentArea v-if="item" :item="item"></ContentArea> -->
       </div>
       <div class="h-full w-56 xl:w-64 border-l border-gray-600 scrolling-touch overflow-y-auto">
@@ -52,42 +51,50 @@ export default {
       this.uis = [
         ...this.uis || [],
         {
-          _id: getID()
+          _id: getID(),
+          geotype: 'sphere',
+          seed: Math.random()
         },
         {
-          _id: getID()
+          _id: getID(),
+          geotype: 'box',
+          seed: Math.random()
         },
         {
-          _id: getID()
+          _id: getID(),
+          geotype: 'cylinder',
+          seed: Math.random()
         },
         {
-          _id: getID()
-        },
-        {
-          _id: getID()
+          _id: getID(),
+          geotype: 'torusknot',
+          seed: Math.random()
         }
       ]
+
+      this.currentID = this.uis[0]._id
     }, 100)
   },
   methods: {
     onLoadMore () {
+      let types = [
+        'box',
+        'sphere',
+        'cylinder',
+        'torusknot'
+      ]
+      let geotype = types[Math.floor(Math.random() * types.length)]
       this.uis = [
         ...this.uis,
         {
-          _id: getID()
+          _id: getID(),
+          geotype,
+          seed: Math.random()
         }
       ]
       this.$nextTick(() => {
         window.dispatchEvent(new Event('scroll-to-bottom'))
       })
-    },
-    addItem () {
-      this.uis = [
-        ...this.uis,
-        {
-          _id: getID()
-        }
-      ]
     },
     onSelect (ui) {
       this.$forceUpdate()
@@ -102,12 +109,12 @@ export default {
   height: calc(100% - 5rem);
 }
 
-@screen md {
+@screen lg {
   .w-fuller{
     width: calc(100% - 14rem * 2.0);
   }
 }
-@screen lg {
+@screen xl {
   .w-fuller{
     width: calc(100% - 16rem * 2.0);
   }

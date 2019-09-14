@@ -55,7 +55,7 @@ export default {
       default: require('../img/afa.svg')
     },
     titlelink: {
-      default: '/artpop-fan-art'
+      default: '/remixer'
     },
     ctatitle: {
       default: `Kudos and Credit`
@@ -75,9 +75,9 @@ export default {
           }
         },
         {
-          name: 'FAN ART: ARTPOP Playground',
+          name: 'Remixer GL Playground',
           action: () => {
-            this.$router.push('/artpop-fan-art')
+            this.$router.push('/remixer')
             this.overlay = false
           }
         },
@@ -161,6 +161,6 @@ export default {
 }
 
 .logo-maxer{
-  max-height: 3rem;
+  max-height: 2.1rem;
 }
 </style>

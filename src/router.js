@@ -15,12 +15,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/artpop-fan-art',
-      component: () => import(/* webpackChunkName: "artpop" */ './views/AFA.vue')
+      path: '/remixer',
+      component: () => import(/* webpackChunkName: "extras" */ './views/AFA.vue')
     },
     {
       path: '/kudos-and-credits',
-      component: () => import(/* webpackChunkName: "artpop" */ './views/APKudos.vue')
+      component: () => import(/* webpackChunkName: "extras" */ './views/APKudos.vue')
     },
     {
       path: '/practices/:pid',
