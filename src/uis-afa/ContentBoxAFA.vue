@@ -16,7 +16,7 @@
         <!-- <ContentArea v-if="item" :item="item"></ContentArea> -->
       </div>
       <div class="h-full w-56 xl:w-64 border-l border-gray-600 scrolling-touch overflow-y-auto">
-        Desktop Right Content
+        <ControlsAFA v-if="uis" :uis="uis" :currentID="currentID"></ControlsAFA>
       </div>
     </div>
   </div>
@@ -30,6 +30,7 @@ let getID = () => {
 // import * as API from '../apis/api'
 export default {
   components: {
+    ControlsAFA: require('./ControlsAFA.vue').default,
     MainContentAFA: require('./MainContentAFA.vue').default,
     ARTListAFA: require('./ARTListAFA.vue').default
   },
@@ -77,13 +78,13 @@ export default {
   },
   methods: {
     onLoadMore () {
-      let types = [
+      let geoTypeList = [
         'box',
         'sphere',
         'cylinder',
         'torusknot'
       ]
-      let geotype = types[Math.floor(Math.random() * types.length)]
+      let geotype = geoTypeList[Math.floor(Math.random() * geoTypeList.length)]
       this.uis = [
         ...this.uis,
         {

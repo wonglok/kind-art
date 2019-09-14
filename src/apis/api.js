@@ -69,11 +69,35 @@ export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
 
   await wait()
 
-  var material = new THREE.MeshStandardMaterial({
-    color,
-    roughness: 0.5,
-    metalness: 0.05,
-    flatShading: false
+  // var material = new THREE.MeshStandardMaterial({
+  //   color,
+  //   roughness: 0.5,
+  //   metalness: 0.05,
+  //   flatShading: false
+  // })
+
+  let uniforms = {
+    time: {
+      value: 0
+    }
+  }
+
+  let material = new THREE.ShaderMaterial({
+    vertexShader: `
+    uniform float time;
+    void main (void) {
+      vec3 nPos = position;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+    }
+  `,
+    fragmentShader: `
+    void main (void) {
+      gl_FragColor = vec4(vec3(1.0, 0.0, 1.0), 0.5);
+    }
+    `,
+    // depthTest: true,
+    uniforms,
+    transparent: true
   })
 
   let mesh = new THREE.Mesh(geometry, material)
@@ -82,9 +106,17 @@ export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
 
   api.render = ({ parallax = undefined }) => {
     // camera.position.y = ((renderer.domElement.clientHeight - bottom) / (renderer.domElement.clientHeight)) * 5.0
-    if (typeof parallax !== 'undefined') {
-      mesh.rotation.y = parallax * Math.PI * 0.5
+    // if (typeof parallax !== 'undefined') {
+    //   mesh.rotation.y = parallax * Math.PI * 0.5
+    // }
+    uniforms.time.value = window.performance.now() * 0.001
+
+    if (!parallax) {
+      if (geotype === 'cylinder') {
+        mesh.rotation.x += 0.005
+      }
     }
+
     mesh.rotation.y += 0.005
   }
 
