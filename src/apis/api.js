@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+require('requestidlecallback')
 
 export const practices = [
   {
@@ -43,83 +44,137 @@ export const wait = () => {
   return new Promise((resolve) => setTimeout(resolve, 0))
 }
 
-export const loadGLB = () => {
-
+export const idle = () => {
+  return new Promise((resolve) => window.requestIdleCallback(resolve, { timeout: 100 }))
 }
 
 export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
-  await wait()
+  await idle()
   let api = {}
-  let seed = ui.seed
-  let geotype = ui.geotype || 'box'
+  api.cancel = false
+  api.clean = () => {
+    api.cancel = true
+  }
+  let makeGeo = () => {
+    let geotype = ui.doc.geotype || 'box'
+    let geometry = false
+    if (geotype === 'box') {
+      geometry = new THREE.BoxBufferGeometry(8.0, 8.0, 8.0, 20, 20, 20)
+    } else if (geotype === 'cylinder') {
+      geometry = new THREE.CylinderGeometry(5.0, 5.0, 10.0, 32, 32)
+    } else if (geotype === 'torusknot') {
+      geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 256, 256, 4.0)
+    } else if (geotype === 'sphere') {
+      geometry = new THREE.SphereBufferGeometry(6.0, 128, 128)
+    }
+    return geometry
+  }
+  let makeColor = () => {
+    return new THREE.Color().setHSL(ui.doc.seed, 1, 0.75)
+  }
+  let makeMat = () => {
+    return new THREE.ShaderMaterial({
+      vertexShader: `
+      uniform float time;
 
-  let geometry = false
+      varying vec3 vNormal;
+      void main (void) {
+        vec3 nPos = position;
 
-  if (geotype === 'box') {
-    geometry = new THREE.BoxBufferGeometry(8.0, 8.0, 8.0, 20, 20, 20)
-  } else if (geotype === 'cylinder') {
-    geometry = new THREE.CylinderGeometry(5.0, 5.0, 10.0, 32, 32, false)
-  } else if (geotype === 'torusknot') {
-    geometry = new THREE.TorusKnotBufferGeometry(5.0, 0.4, 256, 256, 4.0)
-  } else if (geotype === 'sphere') {
-    geometry = new THREE.SphereBufferGeometry(6.0, 128, 128)
+        vNormal = (normalMatrix * normal);
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+      }
+    `,
+      fragmentShader: `
+      varying vec3 vNormal;
+
+      uniform vec3 color;
+      void main (void) {
+        // set the specular term to black
+        vec4 spec = vec4(0.0);
+
+        // normalize both input vectors
+        vec3 n = normalize(vNormal);
+        vec3 e = normalize(vec3(0.5, 0.0, 0.0));
+
+        vec3 l_dir = vec3(0.5, 1.0, 0.5);
+
+        vec4 diffuse = vec4(vec3(color), 0.5);
+
+        float intensity = max(dot(n, l_dir), 0.0);
+        float shininess = 3.0;
+        vec4 specular = vec4(1.0, 0.5, 0.5, 1.0);
+
+        // if the vertex is lit compute the specular color
+        if (intensity > 0.0) {
+            // compute the half vector
+            vec3 h = normalize(l_dir + e);
+            // compute the specular term into spec
+            float intSpec = max(dot(h,n), 0.0);
+            spec = specular * pow(intSpec,shininess);
+        }
+        gl_FragColor = (intensity * diffuse + spec);
+        gl_FragColor.a = clamp(gl_FragColor.a, 0.0, 0.67);
+      }
+
+      `,
+      uniforms,
+      transparent: true
+    })
   }
 
-  let color = new THREE.Color().setHSL(seed, 1, 0.75)
-
-  await wait()
-
-  // var material = new THREE.MeshStandardMaterial({
-  //   color,
-  //   roughness: 0.5,
-  //   metalness: 0.05,
-  //   flatShading: false
-  // })
-
+  let geometry = makeGeo()
+  let color = makeColor()
   let uniforms = {
     time: {
       value: 0
+    },
+    color: {
+      value: color
     }
   }
+  let material = makeMat()
 
-  let material = new THREE.ShaderMaterial({
-    vertexShader: `
-    uniform float time;
-    void main (void) {
-      vec3 nPos = position;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+  ui.doc = new Proxy(ui.doc, {
+    async set (obj, prop, value) {
+      if (api.cancel) {
+        return true
+      }
+      if (obj[prop] !== value) {
+        obj[prop] = value
+
+        if (prop === 'geotype') {
+          await idle()
+          mesh.geometry = makeGeo()
+        }
+        if (prop === 'seed') {
+          color.setHSL(ui.doc.seed, 1, 0.75)
+          uniforms.color.value = color
+          scene.background = color.clone().offsetHSL(0.05, 0.0, 0.2)
+        }
+        if (prop === 'vertexShader') {
+          mesh.material = makeMat()
+        }
+        if (prop === 'fragmentShader') {
+          mesh.material = makeMat()
+        }
+      }
+      return true
     }
-  `,
-    fragmentShader: `
-    void main (void) {
-      gl_FragColor = vec4(vec3(1.0, 0.0, 1.0), 0.5);
-    }
-    `,
-    // depthTest: true,
-    uniforms,
-    transparent: true
   })
+
+  await idle()
 
   let mesh = new THREE.Mesh(geometry, material)
   api.getObject = () => mesh
   scene.background = color.clone().offsetHSL(0.05, 0.0, 0.2)
 
   api.render = ({ parallax = undefined }) => {
-    // camera.position.y = ((renderer.domElement.clientHeight - bottom) / (renderer.domElement.clientHeight)) * 5.0
-    // if (typeof parallax !== 'undefined') {
-    //   mesh.rotation.y = parallax * Math.PI * 0.5
-    // }
     uniforms.time.value = window.performance.now() * 0.001
-
-    if (!parallax) {
-      if (geotype === 'cylinder') {
-        mesh.rotation.x += 0.005
-      }
-    }
 
     mesh.rotation.y += 0.005
   }
-
   camera.position.z = 16
 
   let light2 = new THREE.HemisphereLight(0xaaaaaa, 0x444444)

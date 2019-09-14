@@ -1,7 +1,8 @@
 <template>
   <div class="full relative">
-    <Engine :toucher="toucher" v-if="toucher" @ready="engine = $event; setup()"></Engine>
-    <div class="full absolute top-0 left-0" ref="toucher"></div>
+    <Engine :bloom="'baloon'" :toucher="toucher" v-if="true || toucher" ref="engine" @ready="engine = $event; setup()"></Engine>
+    <!-- <div class="full absolute top-0 left-0" ref="toucher">
+    </div> -->
     <DetailItemAFA v-if="engine && ui" :ui="ui" :engine="engine"></DetailItemAFA>
   </div>
 </template>

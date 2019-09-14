@@ -48,28 +48,37 @@ export default {
       this.inMobileViewPort = window.innerWidth < 768
       this.inDesktopViewPort = window.innerWidth >= 768
     }, false)
+
     setTimeout(() => {
       this.uis = [
         ...this.uis || [],
         {
           _id: getID(),
-          geotype: 'sphere',
-          seed: Math.random()
+          doc: {
+            geotype: 'sphere',
+            seed: Math.random()
+          }
         },
         {
           _id: getID(),
-          geotype: 'box',
-          seed: Math.random()
+          doc: {
+            geotype: 'box',
+            seed: Math.random()
+          }
         },
         {
           _id: getID(),
-          geotype: 'cylinder',
-          seed: Math.random()
+          doc: {
+            geotype: 'cylinder',
+            seed: Math.random()
+          }
         },
         {
           _id: getID(),
-          geotype: 'torusknot',
-          seed: Math.random()
+          doc: {
+            geotype: 'torusknot',
+            seed: Math.random()
+          }
         }
       ]
 
@@ -78,19 +87,22 @@ export default {
   },
   methods: {
     onLoadMore () {
-      let geoTypeList = [
+      let geolist = [
         'box',
         'sphere',
         'cylinder',
         'torusknot'
       ]
-      let geotype = geoTypeList[Math.floor(Math.random() * geoTypeList.length)]
+      let geotype = geolist[Math.floor(Math.random() * geolist.length)]
+
       this.uis = [
         ...this.uis,
         {
           _id: getID(),
-          geotype,
-          seed: Math.random()
+          doc: {
+            geotype,
+            seed: Math.random()
+          }
         }
       ]
       this.$nextTick(() => {

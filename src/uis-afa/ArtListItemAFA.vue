@@ -18,13 +18,14 @@ export default {
   },
   data () {
     return {
-      api: {
+      wrapper: {
         scene: false,
         render () {}
       }
     }
   },
   beforeDestroy  () {
+    this.wrapper.glAPI.clean()
     delete this.scenes[this.domID]
   },
   methods: {
@@ -44,13 +45,13 @@ export default {
     let dom = await this.getDOM({ domID: this.domID })
     let nav = await this.getDOM({ domID: 'navrect' })
     let rect = dom.getBoundingClientRect()
-    let scene = this.api.scene = new THREE.Scene()
+    let scene = this.wrapper.scene = new THREE.Scene()
     let fov = 75
     let aspect = rect.width / rect.height
     let near = 0.1
     let far = 100000000
 
-    let camera = this.api.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+    let camera = this.wrapper.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
 
     // var controls = new THREE.OrbitControls(camera, dom)
     // controls.minDistance = 0
@@ -61,6 +62,7 @@ export default {
     // scene.background = new THREE.Color('rgb(192,223,255)')
 
     let glAPI = await API.setupGraphics({ ui: this.ui, scene, camera, mounter: scene })
+    this.wrapper.glAPI = glAPI
 
     window.addEventListener('resize', () => {
       let size = dom.getBoundingClientRect()
@@ -68,7 +70,7 @@ export default {
       camera.updateProjectionMatrix()
     })
 
-    this.api.render = async ({ renderer }) => {
+    this.wrapper.render = async ({ renderer }) => {
       // console.log('123')
       // controls.update()
       // scene.children[0].rotation.y += 0.01
@@ -94,7 +96,7 @@ export default {
       renderer.render(scene, camera)
     }
 
-    this.scenes[this.domID] = this.api
+    this.scenes[this.domID] = this.wrapper
   }
 }
 </script>

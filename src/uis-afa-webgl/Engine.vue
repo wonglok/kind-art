@@ -1,11 +1,27 @@
 <template>
   <div class="full relative">
-    <div class="full" ref="mounter">
+    <div class="full absolute" ref="mounter">
     </div>
+    <!-- <div class=" absolute" v-if="bloomPass">
+      <input type="range" v-model="bloomPass.threshold" step="0.0001" min="0" max="1" />
+      <input type="range" v-model="bloomPass.strength" step="0.0001" min="0" max="5" />
+      <input type="range" v-model="bloomPass.radius" step="0.0001" min="0" max="5" />
+
+      <input type="number" v-model="bloomPass.threshold" step="0.0001" min="0" max="1" />
+      <input type="number" v-model="bloomPass.strength" step="0.0001" min="0" max="5" />
+      <input type="number" v-model="bloomPass.radius" step="0.0001" min="0" max="5" />
+
+      <br />
+      RGB
+
+      <div v-if="scene && scene.background">
+        <input type="range" v-model="scene.background.r" step="0.0001" min="0" max="1" />
+        <input type="range" v-model="scene.background.g" step="0.0001" min="0" max="5" />
+        <input type="range" v-model="scene.background.b" step="0.0001" min="0" max="5" />
+      </div>
+    </div> -->
     <!-- <div class="absolute top-0 left-0" style="zIndex: 10000;">
-      <input type="range" v-if="bloomPass" v-model="bloomPass.threshold" step="0.0001" min="0" max="10" />
-      <input type="range" v-if="bloomPass" v-model="bloomPass.strength" step="0.0001" min="0" max="5" />
-      <input type="range" v-if="bloomPass" v-model="bloomPass.radius" step="0.0001" min="0" max="5" />
+
     </div> -->
     <Scene @ready="(v) => { scene = v; init() }" >
     </Scene>
@@ -53,6 +69,7 @@ export default {
   },
   data () {
     return {
+      syncRand: 0.0,
       bloomPass: false,
       rotator: false,
       mouse: { x: 0, y: 0, z: 0 },
@@ -87,32 +104,37 @@ export default {
           },
           bubbles: {
             threshold: 0.112,
-            strength: 1.7297,
+            strength: 0.1297,
             radius: 0.6778
+          },
+          baloon: {
+            threshold: 0.6956,
+            strength: 0.2207,
+            radius: 1.1033
           },
           shine: {
             threshold: 0.34014,
             strength: 1.9655,
             radius: 0.5
           }
-        },
-        bloomPass: {
-          threshold: 0.5246740050804402,
-          // threshold: 0.1346740050804403,
-          strength: 1.0551227773073666,
-          radius: 1.3343776460626588
-        },
-        bloomPassLoading: {
-          threshold: 0.4014,
-          strength: 2.7655,
-          radius: 1.113
-        },
-        bloomPassBoard: {
-          threshold: 0.5246740050804402,
-          // threshold: 0.1346740050804403,
-          strength: 0.5551227773073666,
-          radius: 1.0343776460626588
         }
+        // bloomPass: {
+        //   threshold: 0.5246740050804402,
+        //   // threshold: 0.1346740050804403,
+        //   strength: 1.0551227773073666,
+        //   radius: 1.3343776460626588
+        // },
+        // bloomPassLoading: {
+        //   threshold: 0.4014,
+        //   strength: 2.7655,
+        //   radius: 1.113
+        // },
+        // bloomPassBoard: {
+        //   threshold: 0.5246740050804402,
+        //   // threshold: 0.1346740050804403,
+        //   strength: 0.5551227773073666,
+        //   radius: 1.0343776460626588
+        // }
       }
     }
   },
@@ -280,13 +302,14 @@ export default {
       this.rAFID = window.requestAnimationFrame(rAF)
     },
     render () {
-      let { scene, camera, renderer, composer, mouse, rect, control, cubeCamera } = this
+      let { scene, camera, renderer, composer, mouse, rect, control } = this
       if (control) {
         control.update()
       }
-      if (cubeCamera) {
-        cubeCamera.update(renderer, scene)
-      }
+
+      // if (cubeCamera) {
+      //   cubeCamera.update(renderer, scene)
+      // }
 
       for (var kn in this.execMap) {
         this.execMap[kn]({ mouse, rect })
