@@ -56,28 +56,28 @@ export default {
           _id: getID(),
           doc: {
             geotype: 'sphere',
-            seed: Math.random()
+            seed: 0
           }
         },
         {
           _id: getID(),
           doc: {
             geotype: 'box',
-            seed: Math.random()
+            seed: 0.25
           }
         },
         {
           _id: getID(),
           doc: {
             geotype: 'cylinder',
-            seed: Math.random()
+            seed: 0.5
           }
         },
         {
           _id: getID(),
           doc: {
             geotype: 'torusknot',
-            seed: Math.random()
+            seed: 0.75
           }
         }
       ]
