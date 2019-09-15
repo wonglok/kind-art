@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-200 font-serif">
     <HeaderNavAFA :titlelink="'/remixer'" :ctatitle="'Go Back'" :ctalink="'/'"></HeaderNavAFA>
-    <ContentBoxAFA></ContentBoxAFA>
+    <RemixerAppAFA></RemixerAppAFA>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   components: {
     HeaderNavAFA: require('../uis-afa/HeaderNavAFA.vue').default,
-    ContentBoxAFA: require('../uis-afa/ContentBoxAFA.vue').default
+    RemixerAppAFA: require('../uis-afa/RemixerAppAFA.vue').default
   }
 }
 </script>

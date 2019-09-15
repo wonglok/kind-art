@@ -47,6 +47,7 @@ export default {
   },
   data () {
     return {
+      bloomPass: false,
       rAFID: 0,
       renderer: false,
       size: false

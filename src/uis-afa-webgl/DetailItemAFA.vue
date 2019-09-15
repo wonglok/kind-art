@@ -14,21 +14,23 @@ export default {
   },
   data () {
     return {
+      api: false,
       mounter: new THREE.Object3D()
     }
   },
   watch: {
     ui () {
+      this.engine.scene.userData._id = this.ui.id
       this.cleanUp()
       this.setup()
     }
   },
   beforeDestroy () {
     this.cleanUp()
-    this.engine.execStack.detialART = () => {}
   },
   methods: {
     cleanUp () {
+      this.engine.execStack.detialART = () => {}
       if (this.mounter) {
         this.engine.scene.remove(this.mounter)
       }
@@ -36,9 +38,12 @@ export default {
       this.engine.scene.add(this.mounter)
     },
     async setup () {
-      let api = await API.setupGraphics({ ui: this.ui, mounter: this.mounter, scene: this.engine.scene, camera: this.engine.camera })
+      this.api = await API.setupGraphics({ ui: this.ui, mounter: this.mounter, scene: this.engine.scene, camera: this.engine.camera })
+      // this.engine.scene.userData._id = this.ui._id
+
       this.engine.execStack.detialART = () => {
-        api.render({})
+        this.api.render({
+        })
       }
     }
   },

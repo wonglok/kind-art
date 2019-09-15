@@ -23,11 +23,8 @@
 </template>
 
 <script>
-let getID = () => {
-  return `_` + (Math.random() * 1000000000).toFixed(0)
-}
+import * as API from '../apis/api'
 
-// import * as API from '../apis/api'
 export default {
   components: {
     ControlsAFA: require('./ControlsAFA.vue').default,
@@ -50,60 +47,16 @@ export default {
     }, false)
 
     setTimeout(() => {
-      this.uis = [
-        ...this.uis || [],
-        {
-          _id: getID(),
-          doc: {
-            geotype: 'sphere',
-            seed: 0
-          }
-        },
-        {
-          _id: getID(),
-          doc: {
-            geotype: 'box',
-            seed: 0.25
-          }
-        },
-        {
-          _id: getID(),
-          doc: {
-            geotype: 'cylinder',
-            seed: 0.5
-          }
-        },
-        {
-          _id: getID(),
-          doc: {
-            geotype: 'torusknot',
-            seed: 0.75
-          }
-        }
-      ]
+      this.uis = API.getDemo()
 
       this.currentID = this.uis[0]._id
     }, 100)
   },
   methods: {
     onLoadMore () {
-      let geolist = [
-        'box',
-        'sphere',
-        'cylinder',
-        'torusknot'
-      ]
-      let geotype = geolist[Math.floor(Math.random() * geolist.length)]
-
       this.uis = [
         ...this.uis,
-        {
-          _id: getID(),
-          doc: {
-            geotype,
-            seed: Math.random()
-          }
-        }
+        API.makeRand()
       ]
       this.$nextTick(() => {
         window.dispatchEvent(new Event('scroll-to-bottom'))

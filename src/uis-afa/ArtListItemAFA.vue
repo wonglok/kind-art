@@ -25,7 +25,6 @@ export default {
     }
   },
   beforeDestroy  () {
-    this.wrapper.glAPI.clean()
     delete this.scenes[this.domID]
   },
   methods: {

@@ -54,6 +54,7 @@ let { OrbitControls } = require('three/examples/jsm/controls/OrbitControls.js')
 
 export default {
   props: {
+    ui: {},
     bloom: {
       default: 'default'
     },
@@ -161,6 +162,15 @@ export default {
     // }
   },
   watch: {
+    'ui.doc.threshold' (v) {
+      this.bloomPass.threshold = v
+    },
+    'ui.doc.strength' (v) {
+      this.bloomPass.strength = v
+    },
+    'ui.doc.radius' (v) {
+      this.bloomPass.radius = v
+    }
   },
   methods: {
     // startGame (gameReady, audio) {
@@ -243,16 +253,16 @@ export default {
     },
     setupComposer () {
       let composer = this.composer = new THREE.EffectComposer(this.renderer)
-      let { scene, camera, size, dpi, Settings } = this
+      let { scene, camera, size, dpi } = this
       let renderBG = new THREE.RenderPass(scene, camera)
 
       let bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(size.width * dpi, size.height * dpi), 1.5, 0.4, 0.85)
       this.bloomPass = bloomPass
       bloomPass.renderToScreen = true
 
-      bloomPass.threshold = Settings.bloomModes[this.bloom].threshold
-      bloomPass.strength = Settings.bloomModes[this.bloom].strength
-      bloomPass.radius = Settings.bloomModes[this.bloom].radius
+      bloomPass.threshold = this.ui.doc.threshold
+      bloomPass.strength = this.ui.doc.strength
+      bloomPass.radius = this.ui.doc.radius
 
       composer.addPass(renderBG)
       composer.addPass(bloomPass)
@@ -282,6 +292,7 @@ export default {
         camera.updateProjectionMatrix()
       }
       sync()
+
       window.addEventListener('resize', sync, false)
 
       this.uilayer.addEventListener('mousemove', (evt) => {
