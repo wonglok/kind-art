@@ -88,9 +88,34 @@ export const getDemo = ({ random = false } = {}) => {
         'rotateZ': 0,
         'positionX': 0,
         'positionY': 0,
-        'positionZ': 0
+        'positionZ': 0,
+        'twistX': 0,
+        'twistY': 0,
+        'twistZ': 0
       },
       'tween': {
+        'hue': false,
+        'satuation': false,
+        'light': false,
+        'bghue': false,
+        'bgsatuation': false,
+        'bglight': false,
+        'strength': false,
+        'threshold': false,
+        'radius': false,
+        'matShininess': false,
+        'lightDirX': false,
+        'lightDirY': false,
+        'lightDirZ': false,
+        'rotateX': 0,
+        'rotateY': 0,
+        'rotateZ': 0,
+        'positionX': 0,
+        'positionY': 0,
+        'positionZ': 0,
+        'twistX': 0,
+        'twistY': 0,
+        'twistZ': 0
       }
     }
   ]

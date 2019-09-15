@@ -192,6 +192,8 @@ export default {
       this.ui.tween[v].multiply = this.ui.tween[v].multiply || 1.0
       this.ui.tween[v].min = false
       this.ui.tween[v].max = false
+
+      this.$forceUpdate()
     },
     swapTween (v, multiply = 1, min = false, max = false) {
       this.ui.tween[v] = this.ui.tween[v] || { type: 0, multiply, min: false, max: false }
