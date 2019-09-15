@@ -187,7 +187,7 @@ export default {
       copy(JSON.stringify(this.ui, null, '  '))
     },
     stopTween (v) {
-      this.ui.tween[v] = this.ui.tween[v] || {}
+      this.ui.tween[v] = this.ui.tween[v] || { type: 0, multiply: 1, min: false, max: false }
       this.ui.tween[v].type = 0
     },
     swapTween (v, multiply = 1, min = false, max = false) {
