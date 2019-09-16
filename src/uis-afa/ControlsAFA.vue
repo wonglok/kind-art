@@ -9,6 +9,16 @@
         </select>
       </div>
 
+      <div :key="sg._id" v-for="sg in sliderGroups">
+        <div><b>{{ sg.displayName }}</b></div>
+        <div class="text-xs flex items-center ml-3" :key="slider._id" v-for="slider in sg.sliders">
+          <span>{{ slider.displayName }}</span>
+          <input @click="stopTween(slider.key)" class="ml-3 inline w-24" type="range" v-model="ui.doc[slider.key]" :min="slider.min" :max="slider.max" :step="slider.step" />
+          <div class="ml-2 rounded-lg shadow-lg w-6 h-6 border-gray-500 border font-sans text-center inline-flex items-center justify-center select-none cursor-pointer text-xs"  @click="swapTween(slider.key, slider.multiply, slider.min, slider.max)" >{{ display(slider.key) }}</div>
+        </div>
+      </div>
+
+    <!--
       <div>
         <b>Color</b>
       </div>
@@ -131,7 +141,7 @@
         Z
         <input @click="stopTween('positionZ')" class="ml-3 inline w-24" type="range" v-model="ui.doc.positionZ" min="-10" max="10" step="0.0001" />
         <div class="ml-2 rounded-lg shadow-lg w-6 h-6 border-gray-500 border font-sans text-center inline-flex items-center justify-center select-none cursor-pointer text-xs"  @click="swapTween('positionZ', 10, -10, 10)">{{ display('positionZ') }}</div>
-      </div>
+      </div> -->
 
       <!-- <p>
         <b>Bloom: </b>
@@ -170,6 +180,11 @@ export default {
     },
     geolist () {
       return API.geoList()
+    }
+  },
+  data () {
+    return {
+      sliderGroups: API.SliderGroups
     }
   },
   methods: {

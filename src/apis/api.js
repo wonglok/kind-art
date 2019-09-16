@@ -143,6 +143,222 @@ export const makeRand = () => {
   return obj
 }
 
+export const SliderGroups = [
+  {
+    _id: getID(),
+    displayName: 'Color (HSL)',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'H',
+        key: 'hue',
+        min: 0,
+        max: 1,
+        step: 0.0001,
+        multiply: 1
+      },
+      {
+        _id: getID(),
+        displayName: 'S',
+        key: 'satuation',
+        min: 0,
+        max: 1,
+        step: 0.0001,
+        multiply: 1
+      },
+      {
+        _id: getID(),
+        displayName: 'L',
+        key: 'light',
+        min: 0,
+        max: 1,
+        step: 0.0001,
+        multiply: 1
+      }
+    ]
+  },
+  {
+    _id: getID(),
+    displayName: 'Background (HSL)',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'H',
+        key: 'bghue',
+        min: 0,
+        max: 1,
+        step: 0.0001,
+        multiply: 1
+      },
+      {
+        _id: getID(),
+        displayName: 'S',
+        key: 'bgsatuation',
+        min: 0,
+        max: 1,
+        step: 0.0001,
+        multiply: 1
+      },
+      {
+        _id: getID(),
+        displayName: 'L',
+        key: 'bglight',
+        min: 0,
+        max: 1,
+        step: 0.0001,
+        multiply: 1
+      }
+    ]
+  },
+  {
+    _id: getID(),
+    displayName: 'Light Direction',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'X',
+        key: 'lightDirX',
+        min: -3,
+        max: 3,
+        step: 0.0001,
+        multiply: 3
+      },
+      {
+        _id: getID(),
+        displayName: 'Y',
+        key: 'lightDirY',
+        min: -3,
+        max: 3,
+        step: 0.0001,
+        multiply: 3
+      },
+      {
+        _id: getID(),
+        displayName: 'Z',
+        key: 'lightDirZ',
+        min: -3,
+        max: 3,
+        step: 0.0001,
+        multiply: 3
+      }
+    ]
+  },
+  {
+    _id: getID(),
+    displayName: 'Shininess',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'S',
+        key: 'matShininess',
+        min: 0,
+        max: 100,
+        step: 0.0001,
+        multiply: 100
+      }
+    ]
+  },
+  {
+    _id: getID(),
+    displayName: 'Twist',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'X',
+        key: 'twistX',
+        min: -Math.PI * 0.5,
+        max: Math.PI * 0.5,
+        step: 0.0001,
+        multiply: Math.PI * 0.5
+      },
+      {
+        _id: getID(),
+        displayName: 'Y',
+        key: 'twistY',
+        min: -Math.PI * 0.5,
+        max: Math.PI * 0.5,
+        step: 0.0001,
+        multiply: Math.PI * 0.5
+      },
+      {
+        _id: getID(),
+        displayName: 'Z',
+        key: 'twistZ',
+        min: -Math.PI * 0.5,
+        max: Math.PI * 0.5,
+        step: 0.0001,
+        multiply: Math.PI * 0.5
+      }
+    ]
+  },
+  {
+    _id: getID(),
+    displayName: 'Rotate',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'X',
+        key: 'rotateX',
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.0001,
+        multiply: Math.PI
+      },
+      {
+        _id: getID(),
+        displayName: 'Y',
+        key: 'rotateY',
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.0001,
+        multiply: Math.PI
+      },
+      {
+        _id: getID(),
+        displayName: 'Z',
+        key: 'rotateZ',
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.0001,
+        multiply: Math.PI
+      }
+    ]
+  },
+  {
+    _id: getID(),
+    displayName: 'Position',
+    sliders: [
+      {
+        _id: getID(),
+        displayName: 'X',
+        key: 'positionX',
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.0001,
+        multiply: Math.PI
+      },
+      {
+        _id: getID(),
+        displayName: 'Y',
+        key: 'positionY',
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.0001,
+        multiply: Math.PI
+      },
+      {
+        _id: getID(),
+        displayName: 'Z',
+        key: 'positionZ',
+        min: -Math.PI,
+        max: Math.PI,
+        step: 0.0001,
+        multiply: Math.PI
+      }
+    ]
+  }
+]
+
 export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
   let api = {}
 
@@ -207,6 +423,10 @@ export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
         nPos = nPos * rotateZ(nPos.z * twist.z);
 
         vNormal = (normalMatrix * normal);
+
+        vNormal = vNormal * rotateX(vNormal.x + twist.x);
+        vNormal = vNormal * rotateX(vNormal.y + twist.y);
+        vNormal = vNormal * rotateX(vNormal.z + twist.z);
 
         gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
       }
@@ -410,25 +630,30 @@ export const setupGraphics = async ({ ui, mounter, scene, camera }) => {
   setRot()
 
   let tweener = ({ type, time, multiply = 1, min = false, max = false }) => {
+    let filter = v => v
+    if (min === 0) {
+      filter = Math.abs
+    }
     if (type === 1) {
-      time = multiply * time * 0.5 % multiply * 1.0
+      time = multiply * time * 1 / 3 % multiply * 1.0
     } else if (type === 2) {
       time = multiply * time * 1.0 % multiply * 1.0
     } else if (type === 3) {
       time = multiply * time * 2.0 % multiply * 1.0
     } else if (type === 4) {
-      time = multiply * Math.sin(time) % multiply * 1.0
+      time = multiply * Math.sin(time * 0.5) % multiply * 1.0
     } else if (type === 5) {
-      time = multiply * Math.cos(time) % multiply * 1.0
+      time = multiply * Math.cos(time * 0.5) % multiply * 1.0
     } else if (type === 6) {
-      time = multiply * Math.tan(time) % multiply * 1.0
-    } else if (type === 7) {
       time = multiply * Math.sin(time) * Math.sin(time) % multiply * 1.0
-    } else if (type === 8) {
+    } else if (type === 7) {
       time = multiply * Math.cos(time) * Math.cos(time) % multiply * 1.0
+    } else if (type === 8) {
+      time = multiply * time * 0.1 % multiply * 1.0
     } else if (type === 9) {
       time = multiply * time * 0.2 % multiply * 1.0
     }
+    time = filter(time)
 
     if (min !== false) {
       if (time < min) {
