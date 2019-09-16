@@ -252,9 +252,9 @@ export const SliderGroups = [
         displayName: 'S',
         key: 'matShininess',
         min: 0,
-        max: 100,
+        max: 20,
         step: 0.0001,
-        multiply: 100
+        multiply: 1
       }
     ]
   },
