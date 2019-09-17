@@ -1,5 +1,5 @@
 <template>
-  <div class="h-56 border-b border-gray-700 w-full flex items-center justify-center cursor-text font-sans" :id="domID">
+  <div class=" py-8 border-b border-gray-700 w-full flex items-center justify-center cursor-text font-sans" :id="domID">
     <div class="p-12 text-black text-white">
       {{ li.text }}
     </div>
