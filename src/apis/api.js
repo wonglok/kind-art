@@ -38,6 +38,12 @@ export const practices = [
     day: '06',
     name: 'Particles',
     component: () => import('../practices/d06-particle-engine/ParticlePage.vue')
+  },
+  {
+    _id: '7',
+    day: '07',
+    name: 'Energy Canvas',
+    component: () => import('../practices/d07-energy-canvas/EnergyCanvas.vue')
   }
 ]
 
