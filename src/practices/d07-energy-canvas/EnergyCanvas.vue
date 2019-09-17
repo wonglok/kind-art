@@ -39,7 +39,7 @@ export default {
           }
         ]
 
-        this.list = wAPI.aphorismCollections()[0].quotes
+        this.list = wAPI.aphorismCollections()[0].quotes.slice().reverse()
 
         console.log(this.list)
         this.currentID = this.list[0]._id

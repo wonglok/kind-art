@@ -198,11 +198,73 @@ export default {
         transparent: true
       })
       mesh.material = mat
+      let matPTS = new THREE.ShaderMaterial({
+        uniforms: {
+          parallax: {
+            value: 0
+          },
+          time: {
+            value: 0
+          }
+        },
+        vertexShader: `
+          mat3 rotateX(float rad) {
+              float c = cos(rad);
+              float s = sin(rad);
+              return mat3(
+                  1.0, 0.0, 0.0,
+                  0.0, c, s,
+                  0.0, -s, c
+              );
+          }
+
+          mat3 rotateY(float rad) {
+            float c = cos(rad);
+            float s = sin(rad);
+            return mat3(
+                c, 0.0, -s,
+                0.0, 1.0, 0.0,
+                s, 0.0, c
+            );
+          }
+
+          mat3 rotateZ(float rad) {
+            float c = cos(rad);
+            float s = sin(rad);
+            return mat3(
+                c, s, 0.0,
+                -s, c, 0.0,
+                0.0, 0.0, 1.0
+            );
+          }
+
+          uniform float time;
+          uniform float parallax;
+          void main (void) {
+            vec3 nPos = position;
+            nPos = nPos * rotateZ(time);
+            nPos.x += (parallax - 1.5) * 50.0;
+
+            // nPos = nPos * rotateY(time + parallax * 0.35);
+            // nPos = nPos * rotateZ(time + parallax * 0.35);
+
+            gl_PointSize = 0.5;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(nPos, 1.0);
+          }
+        `,
+        fragmentShader: `
+          void main (void) {
+            gl_FragColor = vec4(1.0);
+          }
+        `
+      })
+      pts.material = matPTS
     }
+
     let setGeo = () => {
       let rect = dom.getBoundingClientRect()
       let sInfo = wAPI.calcScreen({ zPos: 0, camera, rect })
-      let geo = new THREE.PlaneBufferGeometry(sInfo.width * 1.0, sInfo.height * 1.0, 100, 100 / sInfo.aspect)
+      let geo = new THREE.PlaneBufferGeometry(sInfo.width * 1.0, sInfo.height * 1.0, 4, 4 / sInfo.aspect)
       mesh.geometry = geo
       mesh.geometry.needsUpdate = true
 
@@ -211,12 +273,24 @@ export default {
       uniforms.iResolution.value.x = window.innerWidth
       uniforms.iResolution.value.y = window.innerHeight
       uniforms.iResolution.value.z = camera.position.z
+
+      let geopts = new THREE.PlaneBufferGeometry(sInfo.vmin * 1.0, sInfo.vmin * 1.0, 60, 60)
+      pts.geometry = geopts
     }
     let mesh = new THREE.Mesh()
+    let pts = new THREE.Points()
     setGeo()
     setMat()
 
+    // pts.material = new THREE.PointsMaterial({
+    //   color: 0xbababa,
+    //   size: 1.0,
+    //   sizeAttenuation: false
+    // })
+    pts.position.z = 1
+
     scene.add(mesh)
+    scene.add(pts)
 
     window.addEventListener('resize', () => {
       let size = dom.getBoundingClientRect()
@@ -250,6 +324,11 @@ export default {
 
       uniforms.time.value = window.performance.now() * 0.0001
       uniforms.parallax.value = (parallax - 0.5) * Math.PI * 2.0
+
+      pts.material.uniforms.parallax.value = uniforms.parallax.value
+      pts.material.uniforms.time.value = uniforms.time.value
+
+      // pts.rotation.z = (parallax - 0.5) * Math.PI * 2.0
 
       renderer.setViewport(left, bottom, width, height)
       renderer.setScissor(left, bottom, width, height)
