@@ -32,16 +32,11 @@ export default {
     },
     load () {
       setTimeout(() => {
-        this.list = [
-          {
-            _id: API.getID(),
-            text: `1236789`
-          }
-        ]
+        let collections = wAPI.aphorismCollections()
+        collections.forEach((coll) => {
+          this.list.push(...coll.quotes.slice())
+        })
 
-        this.list = wAPI.aphorismCollections()[0].quotes.slice()
-
-        console.log(this.list)
         this.currentID = this.list[0]._id
         this.$forceUpdate()
       }, 100)
