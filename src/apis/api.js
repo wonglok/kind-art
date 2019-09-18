@@ -44,6 +44,12 @@ export const practices = [
     day: '07',
     name: 'Energy Canvas',
     component: () => import('../practices/d07-energy-canvas/EnergyCanvas.vue')
+  },
+  {
+    _id: '8',
+    day: '08',
+    name: 'Fun Query Language',
+    component: () => import('../practices/d08-fun-query-language/FunQueryLanguage.vue')
   }
 ]
 
