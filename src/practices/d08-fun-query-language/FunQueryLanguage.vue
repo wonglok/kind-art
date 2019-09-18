@@ -36,7 +36,6 @@ Go get some data from comments table, look for postID 1 in it, store results in 
         buckets: []
       }
       let dictionary = {
-        'bucket': ['DataHolder']
       }
 
       nlp.plugin({
@@ -91,21 +90,21 @@ Go get some data from comments table, look for postID 1 in it, store results in 
         .not('and')
         .out('tags')
         .forEach((entry) => {
-          holder.id = entry.text
-          tagsToLexicon({ lexicon: dictionary, keyname: entry.text, tagsToAdd: ['HolderInstance'] })
-          addBucket({ holderName: entry.text, holderObj: holder })
+          holder.id = entry.normal
+          tagsToLexicon({ lexicon: dictionary, keyname: entry.normal, tagsToAdd: ['HolderInstance'] })
+          addBucket({ holderName: entry.normal, holderObj: holder })
         })
 
-      if (sentence.toLowerCase().indexOf('go get some data from') !== -1) {
+      if (sentence.toLowerCase().indexOf('go get some data') !== -1) {
         nlp(sentence)
-          .match(`Go get some data from [*] table`)
+          .match(`go get some data from [*] table`)
           .not('the')
           .not('and')
           .out('tags')
           .forEach((entry) => {
-            query.table = entry.text
+            query.table = entry.normal
             addQuery({ query })
-            tagsToLexicon({ lexicon: dictionary, keyname: entry.text, tagsToAdd: ['TableInstance'] })
+            tagsToLexicon({ lexicon: dictionary, keyname: entry.normal, tagsToAdd: ['TableInstance'] })
           })
         // , just skip [*] items and get the first [*]
         nlp(sentence)
@@ -114,7 +113,7 @@ Go get some data from comments table, look for postID 1 in it, store results in 
           .not('and')
           .out('tags')
           .forEach((entry) => {
-            query.bucket = entry.text
+            query.bucket = entry.normal
           })
 
         nlp(sentence)
@@ -124,8 +123,8 @@ Go get some data from comments table, look for postID 1 in it, store results in 
           .out('tags')
           .forEach((entry, idx) => {
             if (idx === 0) {
-              query.id = entry.text
-              tagsToLexicon({ lexicon: dictionary, keyname: entry.text, tagsToAdd: ['ResultInstnace'] })
+              query.id = entry.normal
+              tagsToLexicon({ lexicon: dictionary, keyname: entry.normal, tagsToAdd: ['ResultInstnace'] })
             }
           })
 
@@ -136,9 +135,9 @@ Go get some data from comments table, look for postID 1 in it, store results in 
           .out('tags')
           .forEach((entry, idx) => {
             if (idx === 0) {
-              query.lookForField = entry.text
+              query.lookForField = entry.normal
             } else if (idx === 1) {
-              query.lookForID = Number(entry.text)
+              query.lookForID = Number(entry.normal)
             }
           })
       }
