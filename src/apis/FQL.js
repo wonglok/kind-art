@@ -108,7 +108,7 @@ export const procSentence = ({ command, dictionary, ctx }) => {
       })
 
     nlp(command)
-      .match(`#HolderInstance? look for [.] [.] in it?`)
+      .match(`#HolderInstance? look for [.] ID [.] in it?`)
       .not('the')
       .not('and')
       .out('tags')
@@ -118,6 +118,7 @@ export const procSentence = ({ command, dictionary, ctx }) => {
           tagsToLexicon({ lexicon: dictionary, keyname: cleanID(entry.text), tagsToAdd: ['FieldInstance'] })
         } else if (idx === 1) {
           query.lookForID = Number(cleanID(entry.text))
+          tagsToLexicon({ lexicon: dictionary, keyname: 'ID ' + cleanID(entry.text), tagsToAdd: ['IDInstance'] })
         }
       })
 

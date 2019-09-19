@@ -38,7 +38,7 @@ Let’s make a data bucket and call it home_page_bucket.
 
 Go get some data from posts table, store results in home_page_bucket, and label it as latest_posts, skip 100 items and get the first 10, sort with desc order.
 
-Go get some data from comments table, store results in home_page_bucket, and label it as latest_comments, look for postID 1 in it.
+Go get some data from comments table, store results in home_page_bucket, and label it as latest_comments, look for postID ID 1 in it.
 `,
       result: false,
 
@@ -85,6 +85,7 @@ Go get some data from comments table, store results in home_page_bucket, and lab
     },
     processFQL: _.debounce(function () {
       this.runCore()
+      this.runHighlight()
     }, 1000),
     processSuggestions ({ dictionary = {} }) {
       this.suggestions = []
@@ -112,6 +113,15 @@ Go get some data from comments table, store results in home_page_bucket, and lab
       // setTimeout(() => {
       //   CodeMirror.commands.autocomplete(this.cm, null, { completeSingle: true })
       // })
+    },
+    runHighlight () {
+      this.$nextTick(() => {
+        let curosr = this.cm.getCursor()
+        CodeMirror.commands.autocomplete(this.cm, null, { completeSingle: true })
+        CodeMirror.commands.undo(this.cm)
+        CodeMirror.commands.redo(this.cm)
+        this.cm.setCursor({ line: curosr.line, ch: curosr.ch })
+      })
     },
     onCmReady (cm) {
       // console.log(cm)
@@ -143,13 +153,7 @@ Go get some data from comments table, store results in home_page_bucket, and lab
       })
 
       this.runCore()
-      this.$nextTick(() => {
-        let curosr = this.cm.getCursor()
-        CodeMirror.commands.autocomplete(this.cm, null, { completeSingle: true })
-        CodeMirror.commands.undo(this.cm)
-        CodeMirror.commands.redo(this.cm)
-        this.cm.setCursor({ line: curosr.line, ch: curosr.ch })
-      })
+      this.runHighlight()
     },
     replace (replaceMe) {
       var cm = this.cm
@@ -417,6 +421,11 @@ Go get some data from comments table, store results in home_page_bucket, and lab
 .cm-FieldInstance{
   font-weight: bold;
   border-bottom: rgb(202, 122, 31) dashed 2px;
+}
+
+.cm-IDInstance{
+  font-weight: bold;
+  border-bottom: rgb(31, 139, 202) dashed 2px;
 }
 
 .cm-Table{
