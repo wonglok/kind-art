@@ -143,6 +143,22 @@ export const procSentence = ({ command, dictionary, ctx }) => {
       .forEach((entry, idx) => {
         if (idx === 0) {
           query.sort = cleanID(entry.text).toUpperCase()
+          tagsToLexicon({ lexicon: dictionary, keyname: cleanID(entry.text), tagsToAdd: ['OrderInstance'] })
+        }
+      })
+
+    nlp(command)
+      .match(`skip [*] items and get the first [*]`)
+      .not('the')
+      .not('and')
+      .out('tags')
+      .forEach((entry, idx) => {
+        if (idx === 0) {
+          query.sort = cleanID(entry.text).toUpperCase()
+          tagsToLexicon({ lexicon: dictionary, keyname: 'skip ' + cleanID(entry.text), tagsToAdd: ['NumberInstance'] })
+        } else if (idx === 1) {
+          query.sort = cleanID(entry.text).toUpperCase()
+          tagsToLexicon({ lexicon: dictionary, keyname: 'first ' + cleanID(entry.text), tagsToAdd: ['NumberInstance'] })
         }
       })
   }

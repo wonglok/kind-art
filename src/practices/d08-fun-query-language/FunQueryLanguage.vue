@@ -428,6 +428,16 @@ Go get some data from settings table, store results in menu_page_bucket, and lab
   border-bottom: rgb(202, 122, 31) dashed 2px;
 }
 
+
+.cm-OrderInstance{
+  font-weight: bold;
+  border-bottom: rgb(31, 191, 202) dashed 2px;
+}
+.cm-NumberInstance{
+  font-weight: bold;
+  background-color: rgb(176, 224, 228);
+}
+
 .cm-IDInstance{
   font-weight: bold;
   border-bottom: rgb(31, 139, 202) dashed 2px;
@@ -524,7 +534,6 @@ Go get some data from settings table, store results in menu_page_bucket, and lab
   min-height: 500px;
 }
 .cm-label{
-
   position: absolute;
   top: 0;
   left: 0;
