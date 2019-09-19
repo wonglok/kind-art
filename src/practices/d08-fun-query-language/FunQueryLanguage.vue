@@ -28,7 +28,8 @@ export default {
       tables: [
         [
           'posts',
-          'comments'
+          'comments',
+          'settings'
         ]
       ],
       suggestions: [
@@ -52,7 +53,7 @@ Go get some data from settings table, store results in menu_page_bucket, and lab
       ready: false,
 
       cmOptions: {
-        extraKeys: { 'Ctrl-Space': 'autocomplete' },
+        extraKeys: { 'Ctrl-Space': 'autocomplete', 'Cmd-S': () => {} },
         // codemirror options
         keyMap: 'sublime',
         tabSize: 2,
