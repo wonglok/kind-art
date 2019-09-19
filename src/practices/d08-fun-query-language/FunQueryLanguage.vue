@@ -42,10 +42,7 @@ Go get some data from posts table, store results in home_page_bucket, and label 
 
 Go get some data from comments table, store results in home_page_bucket, and label it as latest_comments, look for postID ID 1 in it.
 
-//-------
-
 Go get some data from settings table, store results in menu_page_bucket, and label it as menu_info_items.
-
 `,
       result: false,
 
