@@ -122,21 +122,21 @@ export const procSentence = ({ command, dictionary, ctx }) => {
         }
       })
 
-    nlp(command)
-      .match(`skip [*] items and get the first [*]`)
-      .not('the')
-      .not('and')
-      .out('tags')
-      .forEach((entry, idx) => {
-        if (idx === 0) {
-          query.skip = cleanID(entry.text)
-        } else if (idx === 1) {
-          query.limit = Number(cleanID(entry.text))
-        }
-      })
+    // nlp(command)
+    //   .match(`skip [*] items and get the first [*]`)
+    //   .not('the')
+    //   .not('and')
+    //   .out('tags')
+    //   .forEach((entry, idx) => {
+    //     if (idx === 0) {
+    //       query.skip = cleanID(entry.text)
+    //     } else if (idx === 1) {
+    //       query.limit = Number(cleanID(entry.text))
+    //     }
+    //   })
 
     nlp(command)
-      .match(`sort with [*] order`)
+      .match(`sort with [.] order`)
       .not('the')
       .not('and')
       .out('tags')
@@ -148,16 +148,16 @@ export const procSentence = ({ command, dictionary, ctx }) => {
       })
 
     nlp(command)
-      .match(`skip [*] items and get the first [*]`)
+      .match(`skip [.] items and get the first [.] items`)
       .not('the')
       .not('and')
       .out('tags')
       .forEach((entry, idx) => {
         if (idx === 0) {
-          query.sort = cleanID(entry.text).toUpperCase()
+          query.skip = cleanID(entry.text).toUpperCase()
           tagsToLexicon({ lexicon: dictionary, keyname: 'skip ' + cleanID(entry.text), tagsToAdd: ['NumberInstance'] })
         } else if (idx === 1) {
-          query.sort = cleanID(entry.text).toUpperCase()
+          query.limit = cleanID(entry.text).toUpperCase()
           tagsToLexicon({ lexicon: dictionary, keyname: 'first ' + cleanID(entry.text), tagsToAdd: ['NumberInstance'] })
         }
       })
