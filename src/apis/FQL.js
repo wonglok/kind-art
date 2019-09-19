@@ -94,7 +94,7 @@ export const procSentence = ({ command, dictionary, ctx }) => {
       })
 
     nlp(command)
-      .match(`#HolderInstance? and label it as [.]`)
+      .match(`#HolderInstance? and name it with [.] label`)
       .not('the')
       .not('and')
       .out('tags')

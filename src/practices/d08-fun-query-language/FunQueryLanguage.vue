@@ -38,11 +38,11 @@ export default {
 Let’s make a data bucket and call it home_page_bucket.
 Let’s make a data bucket and call it menu_page_bucket.
 
-Go get some data from posts table, store results in home_page_bucket, and label it as latest_posts, skip 100 items and get the first 10 items, sort with desc order.
+Go get some data from posts table, store results in home_page_bucket, and name it with latest_posts label, skip 100 items and get the first 10 items, sort with desc order.
 
-Go get some data from comments table, store results in home_page_bucket, and label it as latest_comments, look for postID with ID 1 in it, sort with asc order.
+Go get some data from comments table, store results in home_page_bucket, and name it with latest_comments label, look for postID with ID 1 in it, sort with asc order.
 
-Go get some data from settings table, store results in menu_page_bucket, and label it as menu_info_items.
+Go get some data from settings table, store results in menu_page_bucket, and name it with menu_info label.
 `,
       result: false,
 
