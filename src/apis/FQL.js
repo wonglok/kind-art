@@ -61,10 +61,8 @@ export const procSentence = ({ command, dictionary, ctx }) => {
     bucket: ''
   }
 
-  console.log(command)
-
   nlp(command)
-    .match(`make a data bucket and call it [*]`)
+    .match(`make a data bucket and call it [.]`)
     .not('the')
     .not('and')
     .out('tags')
@@ -76,7 +74,7 @@ export const procSentence = ({ command, dictionary, ctx }) => {
 
   if (command.toLowerCase().indexOf('go get some data') !== -1) {
     nlp(command)
-      .match(`go get some data from [*] table`)
+      .match(`go get some data from [.] table`)
       .not('the')
       .not('and')
       .out('tags')
@@ -85,9 +83,9 @@ export const procSentence = ({ command, dictionary, ctx }) => {
         addQuery({ query })
         tagsToLexicon({ lexicon: dictionary, keyname: cleanID(entry.text), tagsToAdd: ['TableInstance'] })
       })
-    // , just skip [*] items and get the first [*]
+    // , just skip [.] items and get the first [.]
     nlp(command)
-      .match(`store results in [*] and`)
+      .match(`store results in [.] and`)
       .not('the')
       .not('and')
       .out('tags')
@@ -96,7 +94,7 @@ export const procSentence = ({ command, dictionary, ctx }) => {
       })
 
     nlp(command)
-      .match(`#HolderInstance? and label it as [*]`)
+      .match(`#HolderInstance? and label it as [.]`)
       .not('the')
       .not('and')
       .out('tags')
@@ -108,7 +106,7 @@ export const procSentence = ({ command, dictionary, ctx }) => {
       })
 
     nlp(command)
-      .match(`#HolderInstance? look for [.] ID [.] in it?`)
+      .match(`#HolderInstance? look for [.] with ID [.] in it?`)
       .not('the')
       .not('and')
       .out('tags')
