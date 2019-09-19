@@ -88,7 +88,9 @@ Go get some data from comments table, store results in home_page_bucket, and lab
       this.runHighlight()
     }, 1000),
     processSuggestions ({ dictionary = {} }) {
-      this.suggestions = []
+      this.suggestions = [
+        ...this.tables
+      ]
 
       let dictionaryKNs = Object.keys(dictionary)
       let getOther = ({ kn }) => dictionaryKNs
@@ -231,18 +233,6 @@ Go get some data from comments table, store results in home_page_bucket, and lab
           let quote = ''
           let detectedType = null
 
-          self.tables.forEach((et) => {
-            if (detectedType === null) {
-              detectedType = et.reduce((ans, item) => {
-                // console.log(item)
-                if (stream.match(item)) {
-                  ans = 'Table'
-                }
-                return ans
-              }, null)
-            }
-          })
-
           self.result = self.result || {}
           Object.keys(self.result.dictionary || {}).forEach((kn) => {
             if (detectedType === null) {
@@ -252,6 +242,18 @@ Go get some data from comments table, store results in home_page_bucket, and lab
               } else {
                 detectedType = null
               }
+            }
+          })
+
+          self.tables.forEach((et) => {
+            if (detectedType === null) {
+              detectedType = et.reduce((ans, item) => {
+                // console.log(item)
+                if (stream.match(item)) {
+                  ans = 'TableInstance'
+                }
+                return ans
+              }, null)
             }
           })
 
@@ -405,10 +407,9 @@ Go get some data from comments table, store results in home_page_bucket, and lab
   border-bottom: rgb(31, 182, 202) dashed 2px;
 }
 
-
 .cm-TableInstance{
   font-weight: bold;
-  border-bottom: rgb(91, 31, 202) dashed 2px;
+  border-bottom: rgb(31, 202, 173) solid 2px;
 }
 .cm-HolderInstance{
   font-weight: bold;
